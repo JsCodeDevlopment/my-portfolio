@@ -5,10 +5,11 @@ interface EducationCardProps {
   course: string;
   institution: string;
   start: string;
+  description?: string[];
   index?: number;
 }
 
-export function EducationCard({ course, institution, start, index = 0 }: EducationCardProps) {
+export function EducationCard({ course, institution, start, description, index = 0 }: EducationCardProps) {
   const { theme } = useTheme();
 
   return (
@@ -39,6 +40,19 @@ export function EducationCard({ course, institution, start, index = 0 }: Educati
         >
           {start}
         </div>
+        {description && (
+          <ul
+            className={`text-sm mb-2 transition-colors duration-300 ${
+              theme === "dark"
+                ? "text-gray-300 group-hover:text-white"
+                : "text-gray-700 group-hover:text-black"
+            }`}
+          >
+            {description.map((desc, i) => (
+              <li className="text-neon-green" key={i}>- {desc}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </ScrollReveal>
   );
