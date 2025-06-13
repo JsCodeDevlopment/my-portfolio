@@ -1,13 +1,16 @@
-"use client"
+"use client";
 
-import { Menu, Moon, Sun, X } from "lucide-react"
-import Image from "next/image"
-import { useState } from "react"
-import { useTheme } from "../contexts/theme-context"
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useTheme } from "@/contexts/theme-context";
+import { useTranslation } from "@/hooks/use-translation";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useTheme()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 dark:bg-black/80 light:bg-white/80 backdrop-blur-md">
@@ -30,36 +33,37 @@ export function Header() {
               href="#home"
               className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
             >
-              Home
+              {t("header", "home")}
             </a>
             <a
               href="#about"
               className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
             >
-              About
+              {t("header", "about")}
             </a>
             <a
               href="#projects"
               className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
             >
-              Projects
+              {t("header", "projects")}
             </a>
             <a
               href="#experience"
               className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
             >
-              Experience
+              {t("header", "experience")}
             </a>
             <a
               href="#contact"
               className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
             >
-              Contact
+              {t("header", "contact")}
             </a>
           </nav>
 
           {/* Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             <div className="flex items-center space-x-2">
               <Sun className="w-4 h-4 text-gray-400 dark:text-gray-400 light:text-gray-600" />
               <button
@@ -81,7 +85,11 @@ export function Header() {
             className="md:hidden p-2 text-white dark:text-white light:text-black hover:text-neon-green transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
       </div>
@@ -94,46 +102,55 @@ export function Header() {
               href="#home"
               className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
             >
-              Home
+              {t("header", "home")}
             </a>
             <a
               href="#about"
               className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
             >
-              About
+              {t("header", "about")}
             </a>
             <a
               href="#projects"
               className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
             >
-              Projects
+              {t("header", "projects")}
             </a>
             <a
               href="#experience"
               className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
             >
-              Experience
+              {t("header", "experience")}
             </a>
             <a
               href="#contact"
               className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
             >
-              Contact
+              {t("header", "contact")}
             </a>
 
             {/* Mobile Theme Toggle */}
-            <div className="pt-4 border-t border-gray-800 dark:border-gray-800 light:border-gray-200">
+            <div className="pt-4 border-t border-gray-800 dark:border-gray-800 light:border-gray-200 flex justify-between items-center">
+              <LanguageSwitcher />
               <button
                 onClick={toggleTheme}
                 className="flex items-center space-x-2 text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
               >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+                {theme === "dark" ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+                <span>
+                  {theme === "dark"
+                    ? t("header", "lightMode")
+                    : t("header", "darkMode")}
+                </span>
               </button>
             </div>
           </div>
         </div>
       )}
     </header>
-  )
+  );
 }
