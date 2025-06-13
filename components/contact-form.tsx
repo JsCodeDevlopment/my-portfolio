@@ -2,6 +2,7 @@
 
 import { publicKey, serviseId, templateId } from "@/constants/emailJs.const";
 import { useTheme } from "@/contexts/theme-context";
+import { useTranslation } from "@/hooks/use-translation";
 import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -34,6 +35,7 @@ interface EmailJSResponse {
 
 export function ContactForm() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [isSending, setIsSending] = useState(false);
 
   const {
@@ -95,12 +97,12 @@ export function ContactForm() {
               theme === "dark" ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Name
+            {t("contact", "name")}
           </label>
           <input
             id="user_name"
             {...register("user_name")}
-            placeholder="John Doe"
+            placeholder={t("contact", "name_placeholder")}
             className={`w-full border rounded-lg px-4 py-3 placeholder-gray-500 focus:border-neon-green focus:outline-none transition-colors duration-300 ${
               theme === "dark"
                 ? "bg-gray-900 border-gray-700 text-white hover:border-gray-600"
@@ -120,12 +122,12 @@ export function ContactForm() {
               theme === "dark" ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Email
+            {t("contact", "email")}
           </label>
           <input
             id="user_email"
             {...register("user_email")}
-            placeholder="john@example.com"
+            placeholder={t("contact", "email_placeholder")}
             className={`w-full border rounded-lg px-4 py-3 placeholder-gray-500 focus:border-neon-green focus:outline-none transition-colors duration-300 ${
               theme === "dark"
                 ? "bg-gray-900 border-gray-700 text-white hover:border-gray-600"
@@ -147,12 +149,12 @@ export function ContactForm() {
             theme === "dark" ? "text-gray-300" : "text-gray-700"
           }`}
         >
-          Message
+          {t("contact", "message")}
         </label>
         <textarea
           id="message"
           {...register("message")}
-          placeholder="Let's exchange ideas?"
+          placeholder={t("contact", "message_placeholder")}
           rows={5}
           className={`w-full border rounded-lg px-4 py-3 placeholder-gray-500 focus:border-neon-green focus:outline-none transition-colors duration-300 resize-none ${
             theme === "dark"
@@ -178,10 +180,10 @@ export function ContactForm() {
         {isSending ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            Sending...
+            {t("contact", "sending")}
           </>
         ) : (
-          "Send Message"
+          t("contact", "send")
         )}
       </button>
     </form>
