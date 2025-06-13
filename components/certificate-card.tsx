@@ -38,7 +38,7 @@ export function CertificateCard({ title, institution, description, index }: Cert
           }`}
         >
           {description.map((desc, i) => (
-            <li key={i}>- {desc}</li>
+            <li className="text-neon-green" key={i}>- {desc}</li>
           ))}
         </ul>
       </div>
