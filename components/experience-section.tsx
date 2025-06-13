@@ -3,6 +3,7 @@
 import { ExperienceCard } from "@/components/experience-card";
 import { useCountAnimation } from "@/hooks/use-count-animation";
 import { useExperienceRequest } from "@/hooks/use-experience";
+import { useTranslation } from "@/hooks/use-translation";
 import { useEffect, useRef } from "react";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
@@ -10,16 +11,19 @@ import { SectionTitle } from "./section-title";
 
 export function ExperienceSection() {
   const { theme } = useTheme();
-  const { experiences } = useExperienceRequest("resume");
+  const { t, language } = useTranslation();
+  const { experiences } = useExperienceRequest(
+    language === "en" ? "resume" : "curriculo"
+  );
   const statsRef = useRef<HTMLDivElement>(null);
 
   const stats = [
-    { number: 30, label: "Projects" },
-    { number: 10, label: "Satisfied" },
-    { number: 100, label: "Positive" },
+    { number: 30, label: t("experience", "projects") },
+    { number: 10, label: t("experience", "satisfied") },
+    { number: 100, label: t("experience", "positive") },
   ];
 
-  const countAnimations = stats.map((stat) => 
+  const countAnimations = stats.map((stat) =>
     useCountAnimation(stat.number, 2000, false)
   );
 
@@ -52,7 +56,7 @@ export function ExperienceSection() {
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <ScrollReveal direction="up" className="mb-16">
-          <SectionTitle title="EXPERIENCE" />
+          <SectionTitle title={t("experience", "title")} />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20 font-mono">
