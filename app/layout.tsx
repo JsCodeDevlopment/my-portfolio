@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/contexts/language-context";
 import type { Metadata } from "next";
 import { Big_Shoulders_Display, Inter } from "next/font/google";
 import type React from "react";
@@ -25,7 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} ${bigShouldersDisplay.className}`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
