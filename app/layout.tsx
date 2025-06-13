@@ -12,9 +12,9 @@ const bigShouldersDisplay = Big_Shoulders_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Jonatas Silva - Fullstack Developer",
-  description: "Portfolio of Jonatas Silva, a passionate fullstack developer",
-  generator: "v0.dev",
+  title: "Jonatas Silva - Software Engineer",
+  description: "Portfolio of Jonatas Silva, a passionate software engineer",
+  generator: "Jonatas Silva",
 };
 
 export default function RootLayout({
