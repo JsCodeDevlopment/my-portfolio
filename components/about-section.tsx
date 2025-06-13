@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslation } from "@/hooks/use-translation";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
 import { SectionTitle } from "./section-title";
 
 export function AboutSection() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const skills = [
     { name: "React", level: "1#", description: "Frontend" },
@@ -23,7 +25,7 @@ export function AboutSection() {
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <ScrollReveal direction="up" className="mb-16">
-          <SectionTitle title="ABOUT" />
+          <SectionTitle title={t("about", "title")} />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-mono">
@@ -36,9 +38,7 @@ export function AboutSection() {
                     : "text-gray-700 hover:text-black"
                 }`}
               >
-                Hello! My name is Jonatas Silva, I am a software developer with
-                over {new Date().getFullYear() - 2023} years of experience creating digital solutions focused on
-                efficiency, performance and good user experience.
+                {t("about", "description_1", { years: (new Date().getFullYear() - 2023).toString() })}
               </p>
             </ScrollReveal>
             <ScrollReveal direction="left" delay={400}>
@@ -49,12 +49,7 @@ export function AboutSection() {
                     : "text-gray-700 hover:text-black"
                 }`}
               >
-                Throughout my career, I have worked on projects in different
-                segments and different project niches, which has given me a
-                broader view of technology and business. I am familiar with
-                frontend and backend development, but it is when creating
-                solutions that connect purpose and technology that I feel most
-                fulfilled.
+                {t("about", "description_2")}
               </p>
             </ScrollReveal>
           </div>
@@ -68,12 +63,7 @@ export function AboutSection() {
                     : "text-gray-700 hover:text-black"
                 }`}
               >
-                I am driven by continuous learning, I enjoy working in a team
-                and I see challenges as opportunities for growth. I always seek
-                to write clean, well-structured and easy-to-maintain code. I am
-                currently focused on building scalable applications and
-                contributing to projects that generate a real impact on people's
-                lives.
+                {t("about", "description_3")}
               </p>
             </ScrollReveal>
 
