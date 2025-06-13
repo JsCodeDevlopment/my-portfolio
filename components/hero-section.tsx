@@ -1,6 +1,7 @@
 "use client"
 
 import { Spotlight } from "@/components/ui/spotlight-new"
+import { useTranslation } from "@/hooks/use-translation"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useTheme } from "../contexts/theme-context"
@@ -9,6 +10,7 @@ import { ScrollReveal } from "./scroll-reveal"
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const { theme } = useTheme()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -21,6 +23,8 @@ export function HeroSection() {
     window.addEventListener("mousemove", handleMouseMove)
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
+
+  const years = new Date().getFullYear() - 2023;
 
   return (
     <section
@@ -65,7 +69,7 @@ export function HeroSection() {
               theme === "dark" ? "text-gray-500" : "text-gray-600"
             }`}
           >
-            CRAFTING DIGITAL EXPERIENCES SINCE — Y:2023
+            {t("hero", "greeting")}
           </p>
         </ScrollReveal>
 
@@ -104,7 +108,7 @@ export function HeroSection() {
               <p className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-5 font-mono font-thin text-center max-w-xl mx-auto transition-colors duration-300 ${
                 theme === "dark" ? "text-gray-400" : "text-gray-600"
               }`}>
-                Jonatas Silva — Mid-level software engineer turning ideas into digital products for over {new Date().getFullYear() - 2023} years.
+                {t("hero", "description", { years: years.toString() })}
               </p>
             </ScrollReveal>
 
