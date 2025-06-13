@@ -5,6 +5,7 @@ import { ProjectsNotFound } from "@/components/projects-notfound";
 import { MarqueeSection } from "@/components/ui/marquee-section";
 import { technologies } from "@/constants/tecnologies.const";
 import { useProjectsRequest } from "@/hooks/use-projects";
+import { useTranslation } from "@/hooks/use-translation";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import { useTheme } from "../../../contexts/theme-context";
 export default function ProjectPage() {
   const { theme } = useTheme();
   const { repos } = useProjectsRequest();
-
+  const { t } = useTranslation();
   const { id } = useParams();
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -72,7 +73,7 @@ export default function ProjectPage() {
             }`}
           >
             <ArrowLeft className="w-5 h-5" />
-            Back to Projects
+            {t("project", "back")}
           </Link>
         </div>
 
@@ -94,7 +95,7 @@ export default function ProjectPage() {
             <h3
               className={`text-2xl font-bold mb-6 uppercase text-neon-green transition-colors duration-300`}
             >
-              About the Project
+              {t("project", "description")}
             </h3>
             <p
               className={`leading-relaxed text-xl transition-colors duration-300 max-w-3xl font-mono ${
@@ -117,7 +118,7 @@ export default function ProjectPage() {
                 className="flex items-center font-mono gap-2 text-neon-green hover:text-neon-green-bright transition-colors duration-300 uppercase"
               >
                 <ExternalLink className="w-4 h-4" />
-                Deploy
+                {t("project", "deploy")}
               </a>
             )}
             {project.html_url && (
@@ -128,7 +129,7 @@ export default function ProjectPage() {
                 className="flex items-center font-mono gap-2 text-neon-green hover:text-neon-green-bright transition-colors duration-300 uppercase"
               >
                 <Github className="w-4 h-4" />
-                Repositório
+                {t("project", "repository")}
               </a>
             )}
           </div>
@@ -136,7 +137,7 @@ export default function ProjectPage() {
           {/* Technologies Section */}
           <div>
             <h2 className="text-2xl font-bold mb-6 uppercase text-neon-green">
-              Tecnologias utilizadas
+              {t("project", "technologies")}
             </h2>
             <div className="flex flex-wrap gap-6 items-center font-mono">
               {projectTechs.map((tech: any) => (
@@ -179,7 +180,7 @@ export default function ProjectPage() {
               theme === "dark" ? "text-white" : "text-black"
             }`}
           >
-            Project Gallery
+            {t("project", "gallery")}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div
