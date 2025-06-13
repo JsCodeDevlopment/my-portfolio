@@ -104,7 +104,7 @@ export function HeroSection() {
               <p className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-5 font-mono font-thin text-center max-w-xl mx-auto transition-colors duration-300 ${
                 theme === "dark" ? "text-gray-400" : "text-gray-600"
               }`}>
-                Jonatas Silva — Mid-level software engineer turning ideas into digital products for over 2 years.
+                Jonatas Silva — Mid-level software engineer turning ideas into digital products for over {new Date().getFullYear() - 2023} years.
               </p>
             </ScrollReveal>
 
