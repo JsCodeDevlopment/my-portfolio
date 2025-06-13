@@ -3,13 +3,17 @@
 import { CertificateCard } from "@/components/certificate-card";
 import { EducationCard } from "@/components/education-card";
 import { useExperienceRequest } from "@/hooks/use-experience";
+import { useTranslation } from "@/hooks/use-translation";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
 import { SectionTitle } from "./section-title";
 
 export function EducationSection() {
   const { theme } = useTheme();
-  const { education, certificates } = useExperienceRequest("resume");
+  const { t, language } = useTranslation();
+  const { education, certificates } = useExperienceRequest(
+    language === "en" ? "resume" : "curriculo"
+  );
 
   return (
     <section
@@ -19,7 +23,7 @@ export function EducationSection() {
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <ScrollReveal direction="up" className="mb-16">
-          <SectionTitle title="EDUCATION" />
+          <SectionTitle title={t("education", "title")} />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-mono">
