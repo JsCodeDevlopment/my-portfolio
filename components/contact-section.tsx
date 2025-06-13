@@ -2,6 +2,7 @@
 
 import { MarqueeSection } from "@/components/ui/marquee-section";
 import { useExperienceRequest } from "@/hooks/use-experience";
+import { useTranslation } from "@/hooks/use-translation";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +13,8 @@ import { SectionTitle } from "./section-title";
 
 export function ContactSection() {
   const { theme } = useTheme();
-  const { contactInfo } = useExperienceRequest("resume");
+  const { t, language } = useTranslation();
+  const { contactInfo } = useExperienceRequest(language === "en" ? "resume" : "curriculo");
   const text = ["Jonatas Silva-", "Software Engineer", `- © Todos os direitos reservados. 2025-${new Date().getFullYear()}-`];
 
   if (!contactInfo) return null;
@@ -27,7 +29,7 @@ export function ContactSection() {
       <ToastContainer position="top-right" />
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <ScrollReveal direction="up" className="mb-16">
-          <SectionTitle title="CONTACT" />
+          <SectionTitle title={t("contact", "title")} />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 font-mono">
@@ -41,8 +43,7 @@ export function ContactSection() {
                       : "text-gray-700 hover:text-black"
                   }`}
                 >
-                  Looking to start a project or you need consultation? Feel free
-                  to contact me.
+                  {t("contact", "description")}
                 </p>
 
                 <div className="space-y-4">
@@ -92,16 +93,6 @@ export function ContactSection() {
           </ScrollReveal>
         </div>
       </div>
-
-      {/* Footer Scrolling Text */}
-      {/* <ScrollReveal direction="fade" delay={600} className="mt-32 py-8">
-        <ScrollingText
-          text="JONATAS SILVA - FULLSTACK DEVELOPER"
-          className={`text-6xl sm:text-8xl lg:text-[12rem] font-black transition-colors duration-300 ${
-            theme === "dark" ? "text-neon-green/30" : "text-neon-green/40"
-          }`}
-        />
-        </ScrollReveal> */}
 
         <MarqueeSection
           items={text}
