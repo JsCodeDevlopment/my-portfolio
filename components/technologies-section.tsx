@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/hooks/use-translation";
 import { technologies } from "../constants/tecnologies.const";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
@@ -7,6 +8,7 @@ import { SectionTitle } from "./section-title";
 
 export function TechnologiesSection() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   // Group technologies by category
   const techCategories = {
@@ -57,7 +59,7 @@ export function TechnologiesSection() {
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <ScrollReveal direction="up" className="mb-16">
-          <SectionTitle title="TECHNOLOGIES" />
+          <SectionTitle title={t("technologies", "title")} />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 font-mono">
@@ -69,7 +71,7 @@ export function TechnologiesSection() {
                   theme === "dark" ? "text-white" : "text-black"
                 }`}
               >
-                Frontend
+                {t("technologies", "frontend")}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {techCategories.frontend.map((tech) => (
@@ -109,7 +111,7 @@ export function TechnologiesSection() {
                   theme === "dark" ? "text-white" : "text-black"
                 }`}
               >
-                Backend
+                {t("technologies", "backend")}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {techCategories.backend.map((tech) => (
@@ -149,7 +151,7 @@ export function TechnologiesSection() {
                   theme === "dark" ? "text-white" : "text-black"
                 }`}
               >
-                Tools
+                {t("technologies", "tools")}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {techCategories.tools.map((tech) => (
