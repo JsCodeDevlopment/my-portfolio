@@ -21,9 +21,9 @@ export function TechnologiesSection() {
         "html",
         "css",
         "sass",
-        "tailwindcss",
+        "tailwind",
         "styled-components",
-        "shadcn",
+        "shadcn-ui",
       ].includes(tech.id)
     ),
     backend: technologies.filter((tech) =>
