@@ -1,5 +1,6 @@
 "use client";
 
+import { MouseFollower } from "@/components/MouseFollower";
 import { MarqueeSection } from "@/components/ui/marquee-section";
 import { technologies } from "@/constants/tecnologies.const";
 import { AboutSection } from "./components/about-section";
@@ -21,6 +22,7 @@ export default function Portfolio() {
         theme === "dark" ? "bg-black" : "bg-white"
       } transition-colors duration-300`}
     >
+      <MouseFollower />
       <Header />
       <main>
         <HeroSection />
