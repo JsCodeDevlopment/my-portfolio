@@ -10,9 +10,9 @@ export function Loading() {
       }`}
     >
       <div className="text-center space-y-4">
-        <div className="w-16 h-16 border-4 border-neon-green border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <div className="loader mx-auto" />
         <p
-          className={`text-xl font-mono ${
+          className={`text-xl font-mono animate-pulse ${
             theme === "dark" ? "text-gray-400" : "text-gray-600"
           }`}
         >
