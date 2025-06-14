@@ -10,7 +10,7 @@ export const translations = {
     hero: {
       greeting: "CRAFTING DIGITAL EXPERIENCES SINCE — Y:2023",
       description:
-        "Jonatas Silva — Mid-level software engineer turning ideas into digital products for over {years} years.",
+        "Jonatas Silva — Software engineer turning ideas into digital products for over {years} years.",
     },
     about: {
       title: "About Me",
@@ -73,7 +73,7 @@ export const translations = {
     hero: {
       greeting: "CRIANDO EXPERIÊNCIAS DIGITAIS DESDE — A:2023",
       description:
-        "Jonatas Silva — Engenheiro de software de nível médio transformando ideias em produtos digitais há mais de {years} anos.",
+        "Jonatas Silva — Engenheiro de software transformando ideias em produtos digitais há mais de {years} anos.",
     },
     about: {
       title: "Sobre Mim",
