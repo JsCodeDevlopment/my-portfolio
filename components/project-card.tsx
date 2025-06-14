@@ -20,6 +20,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     <ScrollReveal key={index} direction="up" delay={index * 200} duration={600}>
       <Link href={`/projects/${project.id}`}>
         <div
+          data-cursor="project"
           className={`group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 cursor-pointer ${
             theme === "dark"
               ? "bg-gray-900 hover:bg-gray-800"
