@@ -8,7 +8,7 @@ export interface Repos {
   description: string | null;
   homepage: string | undefined;
   topics: string[];
-  created_at: string
+  created_at: string;
   message?: "Not Found";
 }
 
@@ -18,8 +18,20 @@ export function useProjectsRequest() {
   useEffect(() => {
     const repositories = async () => {
       try {
-        const response = await fetch(`${baseURL}/repos`);
-        const data = await response.json();
+        let page = 1;
+        const data: Repos[] = [];
+
+        while (true) {
+          const response = await fetch(`${baseURL}/repos?page=${page}`);
+          const repos = await response.json();
+
+          if (repos.length === 0) {
+            break;
+          }
+
+          data.push(...repos);
+          page++;
+        }
         setRepos(data);
       } catch (error) {
         console.error("Error fetching repositories:", error);
