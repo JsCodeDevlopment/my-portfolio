@@ -3,7 +3,7 @@
 Portfolio moderno e responsivo desenvolvido com Next.js, TypeScript e Tailwind CSS, apresentando uma experiência de usuário imersiva com suporte a temas claro/escuro e internacionalização.
 
 <h1 align="center">
-  <img alt="Banner" title="#Banner" style="object-fit: cover;" src="https://jonatas-silva-softwage-engineer.vercel.app/preview.webp"  />
+  <img alt="Banner" title="#Banner" style="object-fit: cover;" src="https://jonatas-silva-software-engineer.vercel.app/preview.webp"  />
 </h1>
 
 ## Funcionalidades
