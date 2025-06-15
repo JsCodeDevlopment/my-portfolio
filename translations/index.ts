@@ -119,7 +119,7 @@ export const translations = {
       back: "Voltar para Projetos",
       title: "Projeto",
       description: "Sobre o Projeto",
-      deploy: "Implantar",
+      deploy: "Visitar",
       repository: "Repositório",
       technologies: "Tecnologias usadas",
       gallery: "Galeria do Projeto",
