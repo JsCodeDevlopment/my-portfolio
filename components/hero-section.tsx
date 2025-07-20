@@ -1,28 +1,30 @@
-"use client"
+"use client";
 
-import { Spotlight } from "@/components/ui/spotlight-new"
-import { useTranslation } from "@/hooks/use-translation"
-import Image from "next/image"
-import { useEffect, useState } from "react"
-import { useTheme } from "../contexts/theme-context"
-import { ScrollReveal } from "./scroll-reveal"
+import { Spotlight } from "@/components/ui/spotlight-new";
+import { useTranslation } from "@/hooks/use-translation";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useTheme } from "../contexts/theme-context";
+import { ScrollReveal } from "./scroll-reveal";
 
 export function HeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const { theme } = useTheme()
-  const { t } = useTranslation()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { theme } = useTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX - window.innerWidth / 2) * 0.05,
         y: (e.clientY - window.innerHeight / 2) * 0.05,
-      })
-    }
+      });
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const thisIsMyName = ["J", "O", "N", "A", "T", "A", "S"];
 
   const years = new Date().getFullYear() - 2023;
 
@@ -33,7 +35,6 @@ export function HeroSection() {
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
-      {/* Background Grid */}
       <div
         className={`absolute inset-0 ${
           theme === "dark"
@@ -44,7 +45,6 @@ export function HeroSection() {
 
       <Spotlight />
 
-      {/* Floating particles */}
       <div className="absolute inset-0">
         {Array.from({ length: 15 }, (_, i) => (
           <div
@@ -75,15 +75,21 @@ export function HeroSection() {
 
         <div className="flex items-center justify-center min-h-[60vh] relative">
           <div className="relative">
-            {/* Large Letters with staggered animation */}
             <div className="flex items-center justify-center flex-wrap">
-              {["J", "O", "N", "A", "T", "A", "S"].map((letter, index) => (
-                <ScrollReveal key={index} direction="up" delay={index * 100} duration={600}>
+              {thisIsMyName.map((letter, index) => (
+                <ScrollReveal
+                  key={index}
+                  direction="up"
+                  delay={index * 100}
+                  duration={600}
+                >
                   <div
                     className="text-[8rem]  md:text-[12rem] xl:text-[200px] leading-none font-black select-none text-neon-green transition-all duration-500 cursor-default hover:scale-110"
                     style={{
                       textShadow:
-                        theme === "dark" ? "0 0 30px rgba(20, 184, 166, 0.5)" : "0 0 20px rgba(20, 184, 166, 0.3)",
+                        theme === "dark"
+                          ? "0 0 30px rgba(20, 184, 166, 0.5)"
+                          : "0 0 20px rgba(20, 184, 166, 0.3)",
                     }}
                   >
                     {letter}
@@ -92,31 +98,46 @@ export function HeroSection() {
               ))}
             </div>
 
-            <ScrollReveal direction="up" delay={800} duration={600} className="mt-4">
+            <ScrollReveal
+              direction="up"
+              delay={800}
+              duration={600}
+              className="mt-4"
+            >
               <div
                 className="text-[8rem] md:text-[12rem] xl:text-[200px] font-black leading-none select-none text-neon-green transition-all duration-500 cursor-default text-center hover:scale-110"
                 style={{
                   textShadow:
-                    theme === "dark" ? "0 0 30px rgba(20, 184, 166, 0.5)" : "0 0 20px rgba(20, 184, 166, 0.3)",
+                    theme === "dark"
+                      ? "0 0 30px rgba(20, 184, 166, 0.5)"
+                      : "0 0 20px rgba(20, 184, 166, 0.3)",
                 }}
               >
                 SILVA
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={1000} duration={600} className="mt-6">
-              <p className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-5 font-mono font-thin text-center max-w-xl mx-auto transition-colors duration-300 ${
-                theme === "dark" ? "text-gray-400" : "text-gray-600"
-              }`}>
+            <ScrollReveal
+              direction="up"
+              delay={1000}
+              duration={600}
+              className="mt-6"
+            >
+              <p
+                className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-5 font-mono font-thin text-center max-w-xl mx-auto transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 {t("hero", "description", { years: years.toString() })}
               </p>
             </ScrollReveal>
 
-            {/* Profile Photo that follows mouse */}
             <div
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 ease-out"
               style={{
-                transform: `translate(${-50 + mousePosition.x}%, ${-50 + mousePosition.y}%)`,
+                transform: `translate(${-50 + mousePosition.x}%, ${
+                  -50 + mousePosition.y
+                }%)`,
               }}
             >
               <ScrollReveal direction="scale" delay={1000} duration={800}>
@@ -145,5 +166,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
