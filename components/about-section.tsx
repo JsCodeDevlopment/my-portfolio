@@ -10,10 +10,10 @@ export function AboutSection() {
   const { t } = useTranslation();
 
   const skills = [
-    { name: "React", level: "1#", description: "Frontend" },
-    { name: "Node.js", level: "2#", description: "Backend" },
-    { name: "TypeScript", level: "3#", description: "Language" },
-    { name: "Nest.js", level: "4#", description: "Backend" },
+    { name: "TypeScript", level: t("about", "language"), description: "Language" },
+    { name: "Node", level: t("about", "runtime"), description: "Backend" },
+    { name: "React", level: t("about", "framework"), description: "Frontend" },
+    { name: "Nest", level: t("about", "framework"), description: "Backend" },
   ];
 
   return (
