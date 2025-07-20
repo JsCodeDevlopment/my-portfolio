@@ -12,11 +12,44 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
 
+  let isProjectDetail = false;
+  if (typeof window !== "undefined") {
+    const path = window.location.pathname;
+    isProjectDetail = /^\/projects\/[^/]+$/.test(path);
+  }
+
+  const navigationItems = [
+    {
+      key: "home",
+      href: (typeof window !== "undefined" && isProjectDetail) ? "/" : "#home",
+      translationKey: "home"
+    },
+    {
+      key: "about",
+      href: "#about",
+      translationKey: "about"
+    },
+    {
+      key: "projects",
+      href: "#projects",
+      translationKey: "projects"
+    },
+    {
+      key: "experience",
+      href: "#experience",
+      translationKey: "experience"
+    },
+    {
+      key: "contact",
+      href: "#contact",
+      translationKey: "contact"
+    }
+  ];
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 dark:bg-black/80 light:bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo/Signature */}
           <div className="flex items-center">
             <Image
               src="/images/js-logo.png"
@@ -27,41 +60,18 @@ export function Header() {
             />
           </div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-12 font-mono">
-            <a
-              href="#home"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
-            >
-              {t("header", "home")}
-            </a>
-            <a
-              href="#about"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
-            >
-              {t("header", "about")}
-            </a>
-            <a
-              href="#projects"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
-            >
-              {t("header", "projects")}
-            </a>
-            <a
-              href="#experience"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
-            >
-              {t("header", "experience")}
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
-            >
-              {t("header", "contact")}
-            </a>
+            {navigationItems.map((item) => (
+              <a
+                key={item.key}
+                href={item.href}
+                className="text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green dark:hover:text-neon-green light:hover:text-neon-green transition-all duration-300 text-sm font-medium hover:glow"
+              >
+                {t("header", item.translationKey)}
+              </a>
+            ))}
           </nav>
 
-          {/* Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
             <div className="flex items-center space-x-2">
@@ -80,7 +90,6 @@ export function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-white dark:text-white light:text-black hover:text-neon-green transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -94,42 +103,19 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-black dark:bg-black light:bg-white border-t border-gray-800 dark:border-gray-800 light:border-gray-200">
           <div className="px-6 py-4 space-y-4">
-            <a
-              href="#home"
-              className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
-            >
-              {t("header", "home")}
-            </a>
-            <a
-              href="#about"
-              className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
-            >
-              {t("header", "about")}
-            </a>
-            <a
-              href="#projects"
-              className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
-            >
-              {t("header", "projects")}
-            </a>
-            <a
-              href="#experience"
-              className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
-            >
-              {t("header", "experience")}
-            </a>
-            <a
-              href="#contact"
-              className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
-            >
-              {t("header", "contact")}
-            </a>
+            {navigationItems.map((item) => (
+              <a
+                key={item.key}
+                href={item.href}
+                className="block text-gray-400 dark:text-gray-400 light:text-gray-600 hover:text-neon-green transition-colors"
+              >
+                {t("header", item.translationKey)}
+              </a>
+            ))}
 
-            {/* Mobile Theme Toggle */}
             <div className="pt-4 border-t border-gray-800 dark:border-gray-800 light:border-gray-200 flex justify-between items-center">
               <LanguageSwitcher />
               <button
