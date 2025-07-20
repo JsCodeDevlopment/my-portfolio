@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageGallery } from "@/components/image-gallery";
 import { Loading } from "@/components/loading-projects";
 import { ProjectsNotFound } from "@/components/projects-notfound";
 import { MarqueeSection } from "@/components/ui/marquee-section";
@@ -25,11 +26,9 @@ export default function ProjectPage() {
 
   useEffect(() => {
     if (!id || !repos.length) return;
-    // Mesma lógica da listagem
     const filtered = repos
       .filter((repo) => repo.topics.includes("pinned"))
       .sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
-    // Buscar pelo id (ajuste para repo.name se necessário)
     const found = filtered.find((repo) => String(repo.id) === String(id));
     setProject(found || null);
     setLoading(false);
@@ -53,6 +52,21 @@ export default function ProjectPage() {
     )
     .filter(Boolean);
 
+  const galleryImages = [
+    {
+      src:
+        `${project.homepage}/gallery/image1.png` ||
+        "/placeholder.svg?height=400&width=600&text=Desktop+View",
+      alt: "Desktop View",
+    },
+    {
+      src:
+        `${project.homepage}/gallery/image2.png` ||
+        "/placeholder.svg?height=400&width=600&text=Mobile+View",
+      alt: "Mobile View",
+    },
+  ];
+
   return (
     <div
       className={`min-h-screen transition-colors duration-300 ${
@@ -62,7 +76,6 @@ export default function ProjectPage() {
       <Header />
 
       <div className="pt-20">
-        {/* Back Button */}
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-8">
           <Link
             href="/#projects"
@@ -77,7 +90,6 @@ export default function ProjectPage() {
           </Link>
         </div>
 
-        {/* Project Title */}
         <div className="text-center mb-16">
           <h1
             className={`text-4xl sm:text-6xl lg:text-7xl font-bold mb-4 transition-colors duration-300 uppercase ${
@@ -88,9 +100,7 @@ export default function ProjectPage() {
           </h1>
         </div>
 
-        {/* Project Info Grid */}
         <div className="max-w-6xl mx-auto px-6 lg:px-8 mb-16">
-          {/* Description Section */}
           <div className="mb-16">
             <h3
               className={`text-2xl font-bold mb-6 uppercase text-neon-green transition-colors duration-300`}
@@ -108,7 +118,6 @@ export default function ProjectPage() {
             </p>
           </div>
 
-          {/* Links Section */}
           <div className="flex gap-6 mb-12">
             {project.homepage && (
               <a
@@ -134,7 +143,6 @@ export default function ProjectPage() {
             )}
           </div>
 
-          {/* Technologies Section */}
           <div>
             <h2 className="text-2xl font-bold mb-6 uppercase text-neon-green">
               {t("project", "technologies")}
@@ -157,7 +165,6 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        {/* Project Image */}
         <div className="max-w-6xl mx-auto px-6 lg:px-8 mb-20">
           <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden group">
             <Image
@@ -173,7 +180,6 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        {/* Additional Project Images/Gallery */}
         <div className="max-w-6xl mx-auto px-6 lg:px-8 mb-20">
           <h3
             className={`text-2xl font-bold font-mono mb-8 transition-colors duration-300 ${
@@ -182,32 +188,7 @@ export default function ProjectPage() {
           >
             {t("project", "gallery")}
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              className={`relative aspect-video rounded-xl overflow-hidden group transition-colors duration-300 ${
-                theme === "dark" ? "bg-gray-900" : "bg-gray-200"
-              }`}
-            >
-              <Image
-                src={`${project.homepage}/gallery/image1.png` || "/placeholder.svg?height=400&width=600&text=Desktop+View"}
-                alt="Desktop View"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div
-              className={`relative aspect-video rounded-xl overflow-hidden group transition-colors duration-300 ${
-                theme === "dark" ? "bg-gray-900" : "bg-gray-200"
-              }`}
-            >
-              <Image
-                src={`${project.homepage}/gallery/image2.png` || "/placeholder.svg?height=400&width=600&text=Mobile+View"}
-                alt="Mobile View"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
+          <ImageGallery images={galleryImages} />
         </div>
 
         <MarqueeSection
