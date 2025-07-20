@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseFollower } from "@/components/MouseFollower";
+import { MouseFollower } from "@/components/mouse-follower";
 import { MarqueeSection } from "@/components/ui/marquee-section";
 import { technologies } from "@/constants/tecnologies.const";
 import { AboutSection } from "./components/about-section";
