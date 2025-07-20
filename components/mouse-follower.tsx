@@ -56,13 +56,11 @@ export function MouseFollower() {
         fontSize: isProject ? 18 : 0,
         letterSpacing: 0.2,
         overflow: "hidden",
-        // mixBlendMode: "difference",
       }}
     >
       {isProject && (
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
           View Project
-          {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> */}
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-up-right-icon lucide-arrow-up-right"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
         </span>
       )}
