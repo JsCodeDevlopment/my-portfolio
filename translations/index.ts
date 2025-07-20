@@ -8,7 +8,7 @@ export const translations = {
       contact: "Contact",
     },
     hero: {
-      greeting: "CRAFTING DIGITAL EXPERIENCES SINCE — Y:2023",
+      greeting: "CRAFTING DIGITAL EXPERIENCES SINCE — YEAR:2023",
       description:
         "Jonatas Silva — Software engineer turning ideas into digital products for over {years} years.",
     },
@@ -20,6 +20,9 @@ export const translations = {
         "Throughout my career, I have worked on projects in different segments and different project niches, which has given me a broader view of technology and business. I am familiar with frontend and backend development, but it is when creating solutions that connect purpose and technology that I feel most fulfilled.",
       description_3:
         "I am driven by continuous learning, I enjoy working in a team and I see challenges as opportunities for growth. I always seek to write clean, well-structured and easy-to-maintain code. I am currently focused on building scalable applications and contributing to projects that generate a real impact on people's lives.",
+      language: "Language",
+      framework: "Framework",
+      runtime: "Runtime",
     },
     technologies: {
       title: "Technologies",
@@ -60,7 +63,7 @@ export const translations = {
       repository: "Repository",
       technologies: "Technologies used",
       gallery: "Project Gallery",
-    }
+    },
   },
   pt: {
     header: {
@@ -71,7 +74,7 @@ export const translations = {
       contact: "Contato",
     },
     hero: {
-      greeting: "CRIANDO EXPERIÊNCIAS DIGITAIS DESDE — A:2023",
+      greeting: "CRIANDO EXPERIÊNCIAS DIGITAIS DESDE — ANO:2023",
       description:
         "Jonatas Silva — Engenheiro de software transformando ideias em produtos digitais há mais de {years} anos.",
     },
@@ -83,6 +86,9 @@ export const translations = {
         "Ao longo da minha carreira, trabalhei em projetos em diferentes segmentos e niches de projeto, o que me deu uma visão mais ampla da tecnologia e do negócio. Sou familiar com desenvolvimento frontend e backend, mas é quando crio soluções que conectam propósito e tecnologia que me sinto mais realizado.",
       description_3:
         "Sou impulsionado pelo aprendizado contínuo, gosto de trabalhar em equipe e vejo desafios como oportunidades de crescimento. Sempre busco escrever código limpo, bem estruturado e fácil de manter. Estou atualmente focado em construir aplicações escaláveis e contribuir para projetos que geram um impacto real na vida das pessoas.",
+      language: "Linguagem",
+      framework: "Biblioteca",
+      runtime: "Ambiente de execução",
     },
     technologies: {
       title: "Tecnologias",
