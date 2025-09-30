@@ -15,7 +15,7 @@ export const translations = {
     about: {
       title: "About Me",
       description_1:
-        "Hello! My name is Jonatas Silva, I am a software developer with over 3 years of experience creating digital solutions focused on efficiency, performance and good user experience.",
+        "Hello! My name is Jonatas Silva, I am a software developer with over {years} years of experience creating digital solutions focused on efficiency, performance and good user experience.",
       description_2:
         "Throughout my career, I have worked on projects in different segments and different project niches, which has given me a broader view of technology and business. I am familiar with frontend and backend development, but it is when creating solutions that connect purpose and technology that I feel most fulfilled.",
       description_3:
@@ -81,7 +81,7 @@ export const translations = {
     about: {
       title: "Sobre Mim",
       description_1:
-        "Olá! Meu nome é Jonatas Silva, sou um desenvolvedor de software com mais de 3 anos de experiência criando soluções digitais focadas em eficiência, desempenho e boa experiência do usuário.",
+        "Olá! Meu nome é Jonatas Silva, sou um desenvolvedor de software com mais de {years} anos de experiência criando soluções digitais focadas em eficiência, desempenho e boa experiência do usuário.",
       description_2:
         "Ao longo da minha carreira, trabalhei em projetos em diferentes segmentos e niches de projeto, o que me deu uma visão mais ampla da tecnologia e do negócio. Sou familiar com desenvolvimento frontend e backend, mas é quando crio soluções que conectam propósito e tecnologia que me sinto mais realizado.",
       description_3:
