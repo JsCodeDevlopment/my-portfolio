@@ -1,9 +1,16 @@
 "use client";
 
 import { useTheme } from "@/contexts/theme-context";
-import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  RotateCcw,
+  X,
+  ZoomIn,
+  ZoomOut,
+} from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ImageGalleryProps {
   images: {
@@ -55,15 +62,16 @@ export function ImageGallery({ images }: ImageGalleryProps) {
     }
   };
 
-  const zoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 3));
+  const zoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 5));
   const zoomOut = () => setZoom((prev) => Math.max(prev - 0.5, 0.5));
+  const resetZoom = () => setZoom(1);
 
-  useState(() => {
+  useEffect(() => {
     if (typeof window !== "undefined") {
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown as any);
+      return () => window.removeEventListener("keydown", handleKeyDown as any);
     }
-  });
+  }, [isModalOpen]);
 
   return (
     <>
@@ -71,19 +79,30 @@ export function ImageGallery({ images }: ImageGalleryProps) {
         {images.map((image, index) => (
           <div
             key={index}
-            className={`relative aspect-video rounded-xl overflow-hidden group transition-colors duration-300 cursor-pointer ${
-              theme === "dark" ? "bg-gray-900" : "bg-gray-200"
-            }`}
+            className={`relative rounded-3xl overflow-hidden group transition-all duration-300 cursor-pointer ${
+              theme === "dark"
+                ? "bg-gradient-to-br from-gray-900/40 via-gray-800/40 to-gray-900/40 backdrop-blur-xl border border-gray-800/30"
+                : "bg-gradient-to-br from-white/40 via-gray-50/40 to-white/40 backdrop-blur-xl border border-gray-300/30"
+            } shadow-2xl hover:shadow-neon-green/10 hover:scale-[1.02]`}
+            style={{
+              clipPath:
+                "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
+              minHeight: "400px",
+              maxHeight: "600px",
+            }}
             onClick={() => openModal(index)}
           >
             <Image
               src={image.src}
               alt={image.alt}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-              <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm text-white">
+                <ZoomIn className="w-5 h-5" />
+                <span className="text-sm font-mono">Clique para ampliar</span>
+              </div>
             </div>
           </div>
         ))}
@@ -92,14 +111,13 @@ export function ImageGallery({ images }: ImageGalleryProps) {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/95 backdrop-blur-md"
             onClick={closeModal}
           />
-
-          <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+          <div className="relative z-10 w-full h-full">
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              className="absolute top-6 right-6 z-30 p-3 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10"
             >
               <X className="w-6 h-6" />
             </button>
@@ -108,57 +126,100 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                  className="absolute left-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                  className="absolute right-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
               </>
             )}
 
-            <div className="absolute top-4 left-4 z-20 flex gap-2">
+            <div className="absolute top-6 left-6 z-30 flex flex-col gap-2">
+              <button
+                onClick={zoomIn}
+                className="p-3 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={zoom >= 5}
+                title="Zoom In (+)"
+              >
+                <ZoomIn className="w-5 h-5" />
+              </button>
               <button
                 onClick={zoomOut}
-                className="p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                className="p-3 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={zoom <= 0.5}
+                title="Zoom Out (-)"
               >
                 <ZoomOut className="w-5 h-5" />
               </button>
               <button
-                onClick={zoomIn}
-                className="p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
-                disabled={zoom >= 3}
+                onClick={resetZoom}
+                className="p-3 rounded-xl bg-black/70 text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10"
+                title="Reset Zoom"
               >
-                <ZoomIn className="w-5 h-5" />
+                <RotateCcw className="w-5 h-5" />
               </button>
             </div>
 
             {images.length > 1 && (
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded-full bg-black/50 text-white text-sm">
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 px-6 py-3 rounded-full bg-black/70 text-white text-sm font-mono backdrop-blur-sm border border-white/10">
                 {currentImageIndex + 1} / {images.length}
               </div>
             )}
 
-            <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+            {zoom !== 1 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-full bg-black/70 text-white text-xs font-mono backdrop-blur-sm border border-white/10">
+                {Math.round(zoom * 100)}%
+              </div>
+            )}
+
+            <div
+              className="relative w-full h-full overflow-auto"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                padding: "4rem",
+              }}
+            >
               <div
-                className="relative w-full h-full flex items-center justify-center"
+                className="relative flex items-center justify-center"
                 style={{
                   transform: `scale(${zoom})`,
                   transition: "transform 0.3s ease",
+                  transformOrigin: "center center",
+                  minWidth: `${100 / zoom}%`,
+                  minHeight: `${100 / zoom}%`,
+                  width: "fit-content",
+                  height: "fit-content",
                 }}
               >
-                <Image
-                  src={images[currentImageIndex].src}
-                  alt={images[currentImageIndex].alt}
-                  fill
-                  className="object-contain"
-                  onClick={(e) => e.stopPropagation()}
-                />
+                <div
+                  className="relative"
+                  style={{
+                    maxWidth: "calc(100vw - 8rem)",
+                    maxHeight: "calc(100vh - 8rem)",
+                    width: "auto",
+                    height: "auto",
+                  }}
+                >
+                  <Image
+                    src={images[currentImageIndex].src}
+                    alt={images[currentImageIndex].alt}
+                    width={1920}
+                    height={1080}
+                    className="object-contain"
+                    style={{
+                      width: "auto",
+                      height: "auto",
+                      maxWidth: "100%",
+                      maxHeight: "calc(100vh - 8rem)",
+                    }}
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
