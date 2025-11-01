@@ -46,20 +46,27 @@ export function HeroSection() {
       <Spotlight />
 
       <div className="absolute inset-0">
-        {Array.from({ length: 15 }, (_, i) => (
-          <div
-            key={i}
-            className={`absolute w-1 h-1 rounded-full animate-float ${
-              theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/40"
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${6 + Math.random() * 4}s`,
-            }}
-          />
-        ))}
+        {Array.from({ length: 15 }, (_, i) => {
+          const left = Math.random() * 100;
+          const top = Math.random() * 100;
+          const delay = Math.random() * 6;
+          const duration = 6 + Math.random() * 4;
+
+          return (
+            <div
+              key={i}
+              className={`absolute w-1 h-1 rounded-full animate-float ${
+                theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/40"
+              }`}
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
