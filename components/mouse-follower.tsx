@@ -7,14 +7,18 @@ export function MouseFollower() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - (isProject ? 60 : 6)}px, ${e.clientY - (isProject ? 20 : 6)}px)`;
+        dotRef.current.style.transform = `translate(${
+          e.clientX - (isProject ? 60 : 6)
+        }px, ${e.clientY - (isProject ? 20 : 6)}px)`;
       }
     };
     const handleOver = (e: Event) => {
-      if ((e.target as HTMLElement).closest('[data-cursor="project"]')) setIsProject(true);
+      if ((e.target as HTMLElement).closest('[data-cursor="project"]'))
+        setIsProject(true);
     };
     const handleOut = (e: Event) => {
-      if ((e.target as HTMLElement).closest('[data-cursor="project"]')) setIsProject(false);
+      if ((e.target as HTMLElement).closest('[data-cursor="project"]'))
+        setIsProject(false);
     };
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseover", handleOver);
@@ -61,9 +65,23 @@ export function MouseFollower() {
       {isProject && (
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
           View Project
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-up-right-icon lucide-arrow-up-right"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-arrow-up-right-icon lucide-arrow-up-right"
+          >
+            <path d="M7 7h10v10" />
+            <path d="M7 17 17 7" />
+          </svg>
         </span>
       )}
     </div>
   );
-} 
+}
