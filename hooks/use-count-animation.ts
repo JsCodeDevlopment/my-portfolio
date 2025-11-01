@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function useCountAnimation(
   target: number,
@@ -7,12 +7,12 @@ export function useCountAnimation(
 ) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(!startOnVisible);
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!hasStarted) return;
 
     let startTime: number | null = null;
-    let animationFrame: number;
 
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime;
@@ -22,14 +22,19 @@ export function useCountAnimation(
       setCount(currentCount);
 
       if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
+        animationFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        animationFrameRef.current = null;
       }
     };
 
-    animationFrame = requestAnimationFrame(animate);
+    animationFrameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationFrame);
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
     };
   }, [target, duration, hasStarted]);
 
@@ -37,5 +42,14 @@ export function useCountAnimation(
     setHasStarted(true);
   };
 
-  return { count, startAnimation };
+  const resetAnimation = () => {
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+    setCount(0);
+    setHasStarted(false);
+  };
+
+  return { count, startAnimation, resetAnimation };
 } 
