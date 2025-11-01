@@ -38,6 +38,7 @@ export const translations = {
       projects: "Projects",
       satisfied: "Satisfied",
       positive: "Positive",
+      technologies_used: "Technologies used in this role",
     },
     education: {
       title: "Education",
@@ -47,6 +48,7 @@ export const translations = {
       title: "Contact",
       description:
         "Looking to start a project or you need consultation? Feel free to contact me.",
+      get_in_touch: "Get in Touch",
       name: "Name",
       name_placeholder: "Name",
       email: "Email",
@@ -54,6 +56,7 @@ export const translations = {
       message: "Message",
       message_placeholder: "Message",
       send: "Send",
+      sending: "Sending...",
     },
     project: {
       back: "Back to Projects",
@@ -104,6 +107,7 @@ export const translations = {
       projects: "Projetos",
       satisfied: "Satisfação",
       positive: "Positivo",
+      technologies_used: "Tecnologias utilizadas neste cargo",
     },
     education: {
       title: "Educação",
@@ -113,6 +117,7 @@ export const translations = {
       title: "Contato",
       description:
         "Procurando iniciar um projeto ou precisa de uma consulta? Sinta-se à vontade para entrar em contato comigo.",
+      get_in_touch: "Entre em Contato",
       name: "Nome",
       name_placeholder: "Nome",
       email: "Email",
@@ -120,6 +125,7 @@ export const translations = {
       message: "Mensagem",
       message_placeholder: "Mensagem",
       send: "Enviar",
+      sending: "Enviando...",
     },
     project: {
       back: "Voltar para Projetos",
