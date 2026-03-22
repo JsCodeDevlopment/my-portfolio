@@ -11,6 +11,7 @@ import { useTranslation } from "@/hooks/use-translation";
 import { ArrowLeft, Calendar, Code, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getImageUrl, getGalleryImages } from "@/utils/image-utils";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "../../../components/header";
@@ -23,7 +24,14 @@ export default function ProjectPage() {
   const { id } = useParams();
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [galleryImages, setGalleryImages] = useState<{ src: string; alt: string }[]>([]);
   const text = ["JONATAS SILVA-", "FULLSTACK DEVELOPER-"];
+
+  useEffect(() => {
+    if (project) {
+      getGalleryImages(project).then(setGalleryImages);
+    }
+  }, [project]);
 
   useEffect(() => {
     if (!id || !repos.length) return;
@@ -31,6 +39,7 @@ export default function ProjectPage() {
       .filter((repo) => repo.topics.includes("pinned"))
       .sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
     const found = filtered.find((repo) => String(repo.id) === String(id));
+    console.log("found →", found?.html_url);
     setProject(found || null);
     setLoading(false);
   }, [id, repos]);
@@ -48,25 +57,23 @@ export default function ProjectPage() {
       technologies.find(
         (tech) =>
           tech.id.toLowerCase() === topic.toLowerCase() ||
-          tech.name.toLowerCase() === topic.toLowerCase()
-      )
+          tech.name.toLowerCase() === topic.toLowerCase(),
+      ),
     )
     .filter(Boolean);
 
-  const galleryImages = [
+  const galleryImagesPlaceholder = [
     {
-      src:
-        `${project.homepage}/gallery/image1.png` ||
-        "/placeholder.svg?height=400&width=600&text=Desktop+View",
+      src: getImageUrl(project, "gallery/image1.png"),
       alt: "Desktop View",
     },
     {
-      src:
-        `${project.homepage}/gallery/image2.png` ||
-        "/placeholder.svg?height=400&width=600&text=Mobile+View",
+      src: getImageUrl(project, "gallery/image2.png"),
       alt: "Mobile View",
     },
   ];
+
+  const displayImages = galleryImages.length > 0 ? galleryImages : galleryImagesPlaceholder;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -83,6 +90,8 @@ export default function ProjectPage() {
       }`}
     >
       <Header />
+
+      <pre>{JSON.stringify(project, null, 2)}</pre>
 
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -182,10 +191,7 @@ export default function ProjectPage() {
                 }}
               >
                 <Image
-                  src={
-                    `${project.homepage}/preview.webp` ||
-                    "/placeholder.svg?height=400&width=600&text=Mobile+View"
-                  }
+                  src={getImageUrl(project, "preview.webp")}
                   alt={project.name || project.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -519,7 +525,7 @@ export default function ProjectPage() {
               >
                 {t("project", "gallery")}
               </h3>
-              <ImageGallery images={galleryImages} />
+              <ImageGallery images={displayImages} />
             </div>
           </ScrollReveal>
         </div>

@@ -7,6 +7,7 @@ import {
 import { technologies } from "@/constants/tecnologies.const";
 import { useTheme } from "@/contexts/theme-context";
 import { Repos } from "@/hooks/use-projects";
+import { getImageUrl } from "@/utils/image-utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,9 +19,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const { theme } = useTheme();
 
-  const previewImageUrl = project.homepage
-    ? `${project.homepage}/preview.webp`
-    : "/placeholder.svg?height=400&width=600";
+  const previewImageUrl = getImageUrl(project, "preview.webp");
 
   const formattedDate = new Date(project.created_at).toLocaleDateString(
     "pt-BR",

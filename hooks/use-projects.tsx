@@ -9,6 +9,7 @@ export interface Repos {
   homepage: string | undefined;
   topics: string[];
   created_at: string;
+  default_branch: string;
   message?: "Not Found";
 }
 
