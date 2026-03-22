@@ -8,7 +8,6 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 const bigShouldersDisplay = Big_Shoulders_Display({
   subsets: ["latin"],
-  weight: "500",
   variable: "--font-big-shoulders-display",
 });
 
