@@ -8,10 +8,10 @@ import { MarqueeSection } from "@/components/ui/marquee-section";
 import { technologies } from "@/constants/tecnologies.const";
 import { useProjectsRequest } from "@/hooks/use-projects";
 import { useTranslation } from "@/hooks/use-translation";
+import { getGalleryImages, getImageUrl } from "@/utils/image-utils";
 import { ArrowLeft, Calendar, Code, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getImageUrl, getGalleryImages } from "@/utils/image-utils";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "../../../components/header";
@@ -24,7 +24,9 @@ export default function ProjectPage() {
   const { id } = useParams();
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [galleryImages, setGalleryImages] = useState<{ src: string; alt: string }[]>([]);
+  const [galleryImages, setGalleryImages] = useState<
+    { src: string; alt: string }[]
+  >([]);
   const text = ["JONATAS SILVA-", "FULLSTACK DEVELOPER-"];
 
   useEffect(() => {
@@ -39,7 +41,6 @@ export default function ProjectPage() {
       .filter((repo) => repo.topics.includes("pinned"))
       .sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
     const found = filtered.find((repo) => String(repo.id) === String(id));
-    console.log("found →", found?.html_url);
     setProject(found || null);
     setLoading(false);
   }, [id, repos]);
@@ -73,7 +74,8 @@ export default function ProjectPage() {
     },
   ];
 
-  const displayImages = galleryImages.length > 0 ? galleryImages : galleryImagesPlaceholder;
+  const displayImages =
+    galleryImages.length > 0 ? galleryImages : galleryImagesPlaceholder;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -90,8 +92,6 @@ export default function ProjectPage() {
       }`}
     >
       <Header />
-
-      <pre>{JSON.stringify(project, null, 2)}</pre>
 
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
