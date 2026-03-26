@@ -10,9 +10,9 @@ import { technologies } from "@/constants/tecnologies.const";
 import { useTheme } from "@/contexts/theme-context";
 import { Repos } from "@/hooks/use-projects";
 import { getImageUrl } from "@/utils/image-utils";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 
 interface ProjectCardProps {
   project: Repos;
@@ -45,7 +45,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     {
       month: "short",
       year: "numeric",
-    }
+    },
   );
 
   const projectTechs = (project.topics || [])
@@ -54,8 +54,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       technologies.find(
         (tech) =>
           tech.id.toLowerCase() === topic.toLowerCase() ||
-          tech.name.toLowerCase() === topic.toLowerCase()
-      )
+          tech.name.toLowerCase() === topic.toLowerCase(),
+      ),
     )
     .filter(Boolean)
     .slice(0, 6);
@@ -68,6 +68,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <Link href={`/projects/${project.id}`}>
         <motion.div
           onMouseMove={handleMouseMove}
+          data-cursor="project"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -78,7 +79,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               : "bg-white border-black/[0.05] hover:border-black/[0.1] shadow-xl hover:shadow-2xl"
           }`}
         >
-          {/* Subtle Hover Glow */}
           <motion.div
             className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100"
             style={{ background }}
@@ -126,8 +126,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               </p>
             )}
 
-            {/* Separator Line */}
-            <div className={`w-full h-px mb-6 ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
+            <div
+              className={`w-full h-px mb-6 ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}
+            />
 
             <div className="flex items-center justify-between">
               {projectTechs.length > 0 && (
@@ -175,11 +176,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   )}
                 </div>
               )}
-              
-              {/* "View Project" minimalist arrow/label could go here */}
-              <div className={`text-[10px] font-mono font-black uppercase tracking-[0.2em] transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 ${
-                theme === "dark" ? "text-neon-green" : "text-black"
-              }`}>
+
+              <div
+                className={`text-[10px] font-mono font-black uppercase tracking-[0.2em] transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 ${
+                  theme === "dark" ? "text-neon-green" : "text-black"
+                }`}
+              >
                 Details →
               </div>
             </div>
