@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Tooltip,
   TooltipContent,
@@ -10,6 +12,7 @@ import { Repos } from "@/hooks/use-projects";
 import { getImageUrl } from "@/utils/image-utils";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 
 interface ProjectCardProps {
   project: Repos;
@@ -18,6 +21,22 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const { theme } = useTheme();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const background = useMotionTemplate`
+    radial-gradient(
+      350px circle at ${mouseX}px ${mouseY}px,
+      rgba(20, 184, 166, 0.12),
+      transparent 80%
+    )
+  `;
 
   const previewImageUrl = getImageUrl(project, "preview.webp");
 
@@ -47,82 +66,87 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <TooltipProvider>
       <Link href={`/projects/${project.id}`}>
-          <div
-            data-cursor="project"
-            className={`group relative rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.02] cursor-pointer ${
-              theme === "dark"
-                ? "bg-gradient-to-br from-gray-900/80 to-gray-800/80 hover:from-gray-800/90 hover:to-gray-700/90 border border-gray-800/50 hover:border-neon-green/30"
-                : "bg-gradient-to-br from-gray-100/80 to-gray-200/80 hover:from-gray-200/90 hover:to-gray-300/90 border border-gray-300/50 hover:border-neon-green/50"
-            } shadow-xl hover:shadow-2xl hover:shadow-neon-green/20`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-neon-green/0 via-neon-green/0 to-neon-green/0 group-hover:from-neon-green/10 group-hover:via-neon-green/5 group-hover:to-neon-green/10 transition-all duration-500 opacity-0 group-hover:opacity-100 blur-xl"></div>
+        <motion.div
+          onMouseMove={handleMouseMove}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: index * 0.1 }}
+          className={`group relative rounded-[2.5rem] overflow-hidden transition-all duration-700 cursor-pointer border ${
+            theme === "dark"
+              ? "bg-[#0c0c0d]/80 border-white/[0.05] hover:border-neon-green/30"
+              : "bg-white border-black/[0.05] hover:border-black/[0.1] shadow-xl hover:shadow-2xl"
+          }`}
+        >
+          {/* Subtle Hover Glow */}
+          <motion.div
+            className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100"
+            style={{ background }}
+          />
 
-            <div className="aspect-video relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10 group-hover:from-black/80 transition-all duration-500"></div>
-              <Image
-                src={previewImageUrl}
-                alt={project.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+          <div className="aspect-[16/10] relative overflow-hidden m-4 rounded-[1.8rem]">
+            <Image
+              src={previewImageUrl}
+              alt={project.name}
+              fill
+              className="object-cover transition-all duration-1000 group-hover:scale-105"
+            />
 
-              <div
-                className={`absolute top-4 right-4 z-20 px-3 py-1.5 rounded-full backdrop-blur-sm text-xs font-semibold transition-all duration-300 ${
-                  theme === "dark"
-                    ? "bg-black/40 text-gray-300 border border-gray-700/50 group-hover:bg-neon-green/20 group-hover:border-neon-green/50 group-hover:text-neon-green"
-                    : "bg-white/40 text-gray-700 border border-gray-400/50 group-hover:bg-neon-green/20 group-hover:border-neon-green/50 group-hover:text-neon-green"
+            <div
+              className={`absolute top-4 right-4 z-20 px-4 py-1.5 rounded-full backdrop-blur-md text-[10px] font-mono font-black uppercase tracking-widest transition-all duration-500 ${
+                theme === "dark"
+                  ? "bg-black/60 text-gray-400 border border-white/10 group-hover:text-neon-green group-hover:border-neon-green/40"
+                  : "bg-white/60 text-gray-500 border border-black/10 group-hover:text-black group-hover:border-black/20"
+              }`}
+            >
+              {formattedDate}
+            </div>
+          </div>
+
+          <div className="px-8 pb-8 pt-2 relative z-10">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <h3
+                className={`text-2xl lg:text-3xl font-black group-hover:text-neon-green transition-all duration-500 uppercase tracking-tighter ${
+                  theme === "dark" ? "text-white" : "text-black"
                 }`}
               >
-                {formattedDate}
-              </div>
+                {project.name.replace(/-/g, " ")}
+              </h3>
             </div>
 
-            <div className="p-6 relative z-10">
-              <div className="flex items-start justify-between gap-4 mb-2">
-                <h3
-                  className={`text-xl md:text-2xl font-black group-hover:text-neon-green transition-all duration-300 uppercase tracking-tight flex-1 ${
-                    theme === "dark" ? "text-white" : "text-black"
-                  }`}
-                  style={{
-                    textShadow:
-                      theme === "dark"
-                        ? "0 0 20px rgba(20, 184, 166, 0)"
-                        : "0 0 10px rgba(20, 184, 166, 0)",
-                  }}
-                >
-                  {project.name.replace(/-/g, " ")}
-                </h3>
-              </div>
+            {project.description && (
+              <p
+                className={`text-sm leading-relaxed mb-8 transition-colors duration-500 line-clamp-2 ${
+                  theme === "dark"
+                    ? "text-gray-400 group-hover:text-gray-200"
+                    : "text-gray-600 group-hover:text-gray-900"
+                }`}
+              >
+                {project.description}
+              </p>
+            )}
 
-              {project.description && (
-                <p
-                  className={`text-sm leading-relaxed line-clamp-2 mt-2 transition-colors duration-300 ${
-                    theme === "dark"
-                      ? "text-gray-400 group-hover:text-gray-300"
-                      : "text-gray-600 group-hover:text-gray-700"
-                  }`}
-                >
-                  {project.description}
-                </p>
-              )}
+            {/* Separator Line */}
+            <div className={`w-full h-px mb-6 ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
 
+            <div className="flex items-center justify-between">
               {projectTechs.length > 0 && (
-                <div className="mt-3 flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                   {projectTechs.map((tech: any) => (
                     <Tooltip key={tech.id} delayDuration={200}>
                       <TooltipTrigger asChild>
                         <div
-                          className={`relative flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
+                          className={`relative flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-500 ${
                             theme === "dark"
-                              ? "bg-gray-800/60 border border-gray-700/50 group-hover:bg-neon-green/20 group-hover:border-neon-green/50"
-                              : "bg-gray-200/60 border border-gray-300/50 group-hover:bg-neon-green/20 group-hover:border-neon-green/50"
+                              ? "bg-white/[0.03] border border-white/[0.05] group-hover:border-neon-green/30 group-hover:bg-neon-green/10"
+                              : "bg-black/[0.03] border border-black/[0.05] group-hover:border-black/10"
                           }`}
                         >
                           <tech.image
-                            width={24}
-                            height={24}
+                            width={20}
+                            height={20}
                             alt={tech.name}
-                            className="transition-transform duration-300 group-hover:scale-110"
+                            className="transition-transform duration-500 group-hover:scale-110"
                           />
                         </div>
                       </TooltipTrigger>
@@ -130,49 +154,37 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                         side="top"
                         className={`${
                           theme === "dark"
-                            ? "bg-gray-900 border-gray-700 text-white"
-                            : "bg-gray-100 border-gray-300 text-black"
-                        }`}
+                            ? "bg-[#0c0c0d] border-white/10 text-white"
+                            : "bg-white border-black/10 text-black"
+                        } font-mono text-[10px] uppercase tracking-widest`}
                       >
-                        <p className="font-semibold">{tech.name}</p>
+                        <p>{tech.name}</p>
                       </TooltipContent>
                     </Tooltip>
                   ))}
                   {remainingTechs > 0 && (
-                    <Tooltip delayDuration={200}>
-                      <TooltipTrigger asChild>
-                        <div
-                          className={`flex items-center justify-center w-10 h-10 rounded-lg text-xs font-semibold transition-all duration-300 ${
-                            theme === "dark"
-                              ? "bg-gray-800/60 text-gray-400 border border-gray-700/50"
-                              : "bg-gray-200/60 text-gray-500 border border-gray-300/50"
-                          }`}
-                        >
-                          +{remainingTechs}
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        side="top"
-                        className={`${
-                          theme === "dark"
-                            ? "bg-gray-900 border-gray-700 text-white"
-                            : "bg-gray-100 border-gray-300 text-black"
-                        }`}
-                      >
-                        <p className="font-semibold">
-                          Mais {remainingTechs} tecnologias
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
+                    <div
+                      className={`flex items-center justify-center w-9 h-9 rounded-xl text-[10px] font-mono font-black border transition-all duration-500 ${
+                        theme === "dark"
+                          ? "bg-white/[0.03] text-gray-500 border-white/[0.05]"
+                          : "bg-black/[0.03] text-gray-400 border-black/[0.05]"
+                      }`}
+                    >
+                      +{remainingTechs}
+                    </div>
                   )}
                 </div>
               )}
-            </div>
-
-            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-              <div className="absolute inset-0 rounded-3xl border-2 border-neon-green/30 blur-sm"></div>
+              
+              {/* "View Project" minimalist arrow/label could go here */}
+              <div className={`text-[10px] font-mono font-black uppercase tracking-[0.2em] transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 ${
+                theme === "dark" ? "text-neon-green" : "text-black"
+              }`}>
+                Details →
+              </div>
             </div>
           </div>
+        </motion.div>
       </Link>
     </TooltipProvider>
   );

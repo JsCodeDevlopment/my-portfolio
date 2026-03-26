@@ -40,24 +40,17 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className={`py-32 transition-colors duration-300 relative overflow-hidden ${
+      className={`py-40 transition-colors duration-300 relative overflow-hidden ${
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
-      {/* Parallax background effect */}
-      <div
-        className={`absolute inset-0 opacity-10 pointer-events-none transition-opacity duration-300 ${
-          theme === "dark"
-            ? "bg-[linear-gradient(rgba(20,184,166,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.1)_1px,transparent_1px)]"
-            : "bg-[linear-gradient(rgba(20,184,166,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.2)_1px,transparent_1px)]"
-        } bg-[size:50px_50px]`}
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-        }}
-      ></div>
+      {/* Subtle atmospheric glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-[0.03]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#14b8a6_0%,_transparent_70%)] blur-[100px]" />
+      </div>
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        <ScrollReveal direction="up" className="mb-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <ScrollReveal direction="up" className="mb-24 text-center lg:text-left">
           <SectionTitle title={t("projects", "title")} />
         </ScrollReveal>
 
