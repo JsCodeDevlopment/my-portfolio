@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
+import Particles from "./ui/particles";
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -45,29 +46,13 @@ export function HeroSection() {
 
       <Spotlight />
 
-      <div className="absolute inset-0">
-        {Array.from({ length: 15 }, (_, i) => {
-          const left = Math.random() * 100;
-          const top = Math.random() * 100;
-          const delay = Math.random() * 6;
-          const duration = 6 + Math.random() * 4;
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={60}
+        staticity={50}
+        ease={50}
+      />
 
-          return (
-            <div
-              key={i}
-              className={`absolute w-1 h-1 rounded-full animate-float ${
-                theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/40"
-              }`}
-              style={{
-                left: `${left}%`,
-                top: `${top}%`,
-                animationDelay: `${delay}s`,
-                animationDuration: `${duration}s`,
-              }}
-            />
-          );
-        })}
-      </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
         <ScrollReveal direction="fade" className="text-center mb-8">
