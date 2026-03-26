@@ -136,7 +136,7 @@ export function HeroSection() {
               <span
                 className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}
               >
-                Explore Projects
+                {t("hero", "explore")}
               </span>
             </button>
           </ScrollReveal>
@@ -146,12 +146,12 @@ export function HeroSection() {
       <div
         className={`absolute top-1/4 -left-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
       >
-        SOFTWARE
+        {t("hero", "software")}
       </div>
       <div
         className={`absolute bottom-1/4 -right-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
       >
-        ENGINEER
+        {t("hero", "engineer")}
       </div>
     </section>
   );

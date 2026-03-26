@@ -12,27 +12,27 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 
-const contactFormSchema = z.object({
-  user_name: z
-    .string()
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be less than 50 characters"),
-  user_email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Invalid email address"),
-  message: z
-    .string()
-    .min(10, "Message must be at least 10 characters")
-    .max(1000, "Message must be less than 1000 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
 export function ContactForm() {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const [isSending, setIsSending] = useState(false);
+
+  const contactFormSchema = z.object({
+    user_name: z
+      .string()
+      .min(2, t("contact", "val_name_min"))
+      .max(50, t("contact", "val_name_max")),
+    user_email: z
+      .string()
+      .min(1, t("contact", "val_email_req"))
+      .email(t("contact", "val_email_inv")),
+    message: z
+      .string()
+      .min(10, t("contact", "val_msg_min"))
+      .max(1000, t("contact", "val_msg_max")),
+  });
+
+  type ContactFormData = z.infer<typeof contactFormSchema>;
 
   const {
     register,
@@ -64,12 +64,12 @@ export function ContactForm() {
       await emailjs.sendForm(serviseId, templateId, form, publicKey);
 
       reset();
-      toast.success("Message sent successfully! ✌", {
+      toast.success(t("contact", "success_msg"), {
         autoClose: 3000,
         theme: theme === "dark" ? "dark" : "light",
       });
     } catch (error) {
-      toast.error("Something went wrong! 🤦‍♂️", {
+      toast.error(t("contact", "error_msg"), {
         autoClose: 3000,
         theme: theme === "dark" ? "dark" : "light",
       });
@@ -92,7 +92,7 @@ export function ContactForm() {
           {/* Name Field */}
           <div className="space-y-4">
              <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                Your Name
+                {t("contact", "name_label")}
              </label>
              <div className="relative">
                 <input
@@ -112,7 +112,7 @@ export function ContactForm() {
           {/* Email Field */}
           <div className="space-y-4">
              <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                Email Address
+                {t("contact", "email_label")}
              </label>
              <div className="relative">
                 <input
@@ -133,7 +133,7 @@ export function ContactForm() {
         {/* Message Field */}
         <div className="space-y-4 pt-4">
            <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-              The Project / Message
+              {t("contact", "message_label")}
            </label>
            <div className="relative">
               <textarea

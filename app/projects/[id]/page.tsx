@@ -102,7 +102,7 @@ export default function ProjectPage() {
   const marqueeItems = [
     project.name.replace(/-/g, " ").toUpperCase(),
     "•",
-    "CASE STUDY",
+    t("project", "case_study"),
     "•",
     project.language?.toUpperCase() || "DEVELOPMENT",
     "•",
@@ -169,13 +169,13 @@ export default function ProjectPage() {
                       <span
                         className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
                       >
-                        Live Preview
+                        {t("project", "live_preview")}
                       </span>
                       <div className="flex items-center gap-2">
                         <span
                           className={`text-xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}
                         >
-                          Visit Site
+                          {t("project", "visit_site")}
                         </span>
                         <ArrowUpRight className="w-5 h-5 text-neon-green opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500" />
                       </div>
@@ -191,13 +191,13 @@ export default function ProjectPage() {
                       <span
                         className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
                       >
-                        Source Code
+                        {t("project", "source_code")}
                       </span>
                       <div className="flex items-center gap-2">
                         <span
                           className={`text-xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}
                         >
-                          GitHub Repository
+                          {t("project", "github_repo")}
                         </span>
                         <Github className="w-5 h-5 text-neon-green opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500" />
                       </div>
@@ -227,12 +227,12 @@ export default function ProjectPage() {
                 <div className="space-y-12">
                   <div className="space-y-6">
                     <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-                      Abstract
+                      {t("project", "abstract")}
                     </span>
                     <h2
                       className={`text-3xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
                     >
-                      The vision behind the code.
+                      {t("project", "vision")}
                     </h2>
                     <p
                       className={`text-xl lg:text-2xl leading-relaxed font-medium ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}
@@ -279,14 +279,14 @@ export default function ProjectPage() {
 
                   <div className="space-y-4 pt-8 border-t border-white/[0.05]">
                     <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-                      System Specs
+                      {t("project", "system_specs")}
                     </span>
                     <div className="grid grid-cols-2 gap-8">
                       <div>
                         <span
                           className={`block text-[10px] font-mono uppercase tracking-widest mb-1 ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
                         >
-                          Language
+                          {t("project", "language_label")}
                         </span>
                         <span
                           className={`text-lg font-bold ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
@@ -298,7 +298,7 @@ export default function ProjectPage() {
                         <span
                           className={`block text-[10px] font-mono uppercase tracking-widest mb-1 ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
                         >
-                          Timeline
+                          {t("project", "timeline")}
                         </span>
                         <span
                           className={`text-lg font-bold ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
@@ -319,7 +319,7 @@ export default function ProjectPage() {
                 <h3
                   className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
                 >
-                  Gallery
+                  {t("project", "gallery_label")}
                 </h3>
                 <div
                   className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}

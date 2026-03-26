@@ -72,9 +72,10 @@ export function AboutSection() {
               <h3
                 className={`text-4xl lg:text-6xl font-black leading-[1.1] tracking-tighter ${theme === "dark" ? "text-white" : "text-black"}`}
               >
-                Crafting robust{" "}
-                <span className="text-neon-green">architectures</span> and fluid{" "}
-                <span className="text-neon-green/40">user experiences</span>.
+                {t("about", "hero_text_1")}{" "}
+                <span className="text-neon-green">{t("about", "hero_text_2")}</span>{" "}
+                {t("about", "hero_text_3")}{" "}
+                <span className="text-neon-green/40">{t("about", "hero_text_4")}</span>.
               </h3>
             </ScrollReveal>
 
@@ -99,18 +100,36 @@ export function AboutSection() {
 
             <ScrollReveal direction="up" delay={800}>
               <div className="grid grid-cols-3 gap-8 pt-12 border-t border-white/[0.05]">
-                {stats.map((stat, i) => (
-                  <div key={i} className="space-y-2">
-                    <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-                      {stat.label}
-                    </span>
-                    <div
-                      className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
-                    >
-                      {stat.value}
-                    </div>
+                <div className="space-y-2">
+                  <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                    {t("about", "years_exp")}
+                  </span>
+                  <div
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                  >
+                    {(new Date().getFullYear() - 2023).toString()}+
                   </div>
-                ))}
+                </div>
+                <div className="space-y-2">
+                  <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                    {t("about", "projects_stat")}
+                  </span>
+                  <div
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                  >
+                    30+
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                    {t("about", "coffee_day")}
+                  </span>
+                  <div
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                  >
+                    ∞
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -126,12 +145,12 @@ export function AboutSection() {
               >
                 <div className="mb-10 flex flex-col gap-2">
                   <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-                    Current Focus
+                    {t("about", "current_focus")}
                   </span>
                   <h4
                     className={`text-3xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
                   >
-                    Core Stack
+                    {t("about", "core_stack")}
                   </h4>
                 </div>
 
@@ -181,7 +200,7 @@ export function AboutSection() {
                     <span
                       className={`text-[10px] font-mono font-black uppercase tracking-widest ${theme === "dark" ? "text-gray-400 group-hover:text-neon-green" : "text-gray-500 group-hover:text-black"}`}
                     >
-                      View Tech Stack
+                      {t("about", "view_tech_stack")}
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-neon-green group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
                   </button>
@@ -195,7 +214,7 @@ export function AboutSection() {
       <div
         className={`absolute -bottom-20 -left-20 text-[20rem] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
       >
-        ABOUT
+        {t("about", "bg_text")}
       </div>
     </section>
   );

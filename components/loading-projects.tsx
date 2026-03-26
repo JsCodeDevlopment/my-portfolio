@@ -1,11 +1,13 @@
 "use client";
 
 import { useTheme } from "@/contexts/theme-context";
+import { useTranslation } from "@/hooks/use-translation";
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { useEffect } from "react";
 
 export function Loading() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -75,7 +77,7 @@ export function Loading() {
             transition={{ duration: 2, repeat: Infinity }}
             className="text-neon-green font-mono text-[10px] lowercase tracking-[0.8em] font-black"
           >
-            initialising
+            {t("loading", "initialising")}
           </motion.span>
 
           <h2
@@ -88,7 +90,7 @@ export function Loading() {
             <span
               className={`text-[10px] font-mono uppercase tracking-widest ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
             >
-              Establishing Core
+              {t("loading", "establishing_core")}
             </span>
             <div
               className={`w-32 h-px ${theme === "dark" ? "bg-white/5" : "bg-black/5"} relative`}
@@ -106,7 +108,7 @@ export function Loading() {
       <div
         className={`absolute bottom-20 right-20 text-[10vw] font-black opacity-[0.02] pointer-events-none select-none ${theme === "dark" ? "text-white" : "text-black"}`}
       >
-        LOADING
+        {t("loading", "loading_text")}
       </div>
     </div>
   );

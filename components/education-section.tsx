@@ -33,7 +33,7 @@ export function EducationSection() {
              <div className="md:col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-8 mb-10">
                    <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                      Formation
+                      {t("education", "formation")}
                    </h3>
                    <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
                 </div>
@@ -50,7 +50,7 @@ export function EducationSection() {
           <div className="md:col-span-2">
              <div className="flex items-center gap-8 mb-10">
                 <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                   Certificates
+                   {t("education", "certificates")}
                 </h3>
                 <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
              </div>

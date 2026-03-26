@@ -76,10 +76,10 @@ export function ContactSection() {
             <ScrollReveal direction="up" delay={200}>
               <div className="space-y-6">
                  <span className="text-neon-green font-mono text-xs uppercase tracking-[0.6em] font-black">
-                    Let's Talk
+                    {t("contact", "lets_talk")}
                  </span>
                  <h3 className={`text-4xl lg:text-6xl font-black leading-tight ${theme === "dark" ? "text-white" : "text-black"}`}>
-                    {t("contact", "get_in_touch") || "Get in Touch"}
+                    {t("contact", "get_in_touch")}
                  </h3>
                  <p className={`text-lg leading-relaxed max-w-md ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
                     {t("contact", "description")}
@@ -96,7 +96,7 @@ export function ContactSection() {
                     className="group flex flex-col gap-1 w-fit"
                   >
                     <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                       Email Address
+                       {t("contact", "email_label")}
                     </span>
                     <div className="flex items-center gap-3">
                        <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>
@@ -111,7 +111,7 @@ export function ContactSection() {
                     className="group flex flex-col gap-1 w-fit"
                   >
                     <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-                       Direct Call
+                       {t("contact", "phone_label")}
                     </span>
                     <div className="flex items-center gap-3">
                        <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>
@@ -182,10 +182,10 @@ export function ContactSection() {
       <div className="mt-20 py-10 border-t border-white/[0.05]">
          <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
-               © {new Date().getFullYear()} Jonatas Silva. All rights reserved.
+               © {new Date().getFullYear()} Jonatas Silva. {t("contact", "rights")}
             </p>
             <div className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
-               Brazil • GMT -3
+               {t("contact", "brazil")} • GMT -3
             </div>
          </div>
       </div>

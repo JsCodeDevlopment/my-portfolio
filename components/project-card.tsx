@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { technologies } from "@/constants/tecnologies.const";
 import { useTheme } from "@/contexts/theme-context";
+import { useTranslation } from "@/hooks/use-translation";
 import { Repos } from "@/hooks/use-projects";
 import { getImageUrl } from "@/utils/image-utils";
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
@@ -21,6 +22,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -182,7 +184,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   theme === "dark" ? "text-neon-green" : "text-black"
                 }`}
               >
-                Details →
+                {t("projects", "details")} →
               </div>
             </div>
           </div>

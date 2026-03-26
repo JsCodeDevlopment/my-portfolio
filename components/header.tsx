@@ -129,7 +129,7 @@ export function Header() {
                 onClick={(e) => handleNavClick(e, "/#contact")}
                 className="group flex items-center gap-2 px-6 py-2.5 rounded-full bg-neon-green text-black font-black text-[10px] uppercase tracking-widest hover:bg-neon-green-bright transition-all duration-500 hover:scale-105"
               >
-                Hire Me
+                {t("header", "hire_me")}
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
             </div>
@@ -197,7 +197,9 @@ export function Header() {
                       <Moon className="w-4 h-4" />
                     )}
                     <span className="text-[10px] font-mono font-black uppercase tracking-widest">
-                      {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                      {theme === "dark"
+                        ? t("header", "light_mode")
+                        : t("header", "dark_mode")}
                     </span>
                   </button>
                 </div>
@@ -207,7 +209,7 @@ export function Header() {
                   onClick={(e) => handleNavClick(e, "/#contact")}
                   className="w-full py-4 rounded-2xl bg-neon-green text-black font-black text-sm uppercase tracking-[0.4em] flex items-center justify-center gap-2"
                 >
-                  Get in touch <ArrowUpRight className="w-5 h-5" />
+                  {t("header", "get_in_touch")} <ArrowUpRight className="w-5 h-5" />
                 </Link>
               </div>
             </div>
