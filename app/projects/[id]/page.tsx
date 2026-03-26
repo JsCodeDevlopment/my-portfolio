@@ -9,7 +9,8 @@ import { technologies } from "@/constants/tecnologies.const";
 import { useProjectsRequest } from "@/hooks/use-projects";
 import { useTranslation } from "@/hooks/use-translation";
 import { getGalleryImages, getImageUrl } from "@/utils/image-utils";
-import { ArrowLeft, Calendar, Code, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -27,7 +28,23 @@ export default function ProjectPage() {
   const [galleryImages, setGalleryImages] = useState<
     { src: string; alt: string }[]
   >([]);
-  const text = ["JONATAS SILVA-", "FULLSTACK DEVELOPER-"];
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const background = useMotionTemplate`
+    radial-gradient(
+      800px circle at ${mouseX}px ${mouseY}px,
+      rgba(20, 184, 166, 0.05),
+      transparent 80%
+    )
+  `;
 
   useEffect(() => {
     if (project) {
@@ -63,483 +80,276 @@ export default function ProjectPage() {
     )
     .filter(Boolean);
 
-  const galleryImagesPlaceholder = [
-    {
-      src: getImageUrl(project, "gallery/image1.png"),
-      alt: "Desktop View",
-    },
-    {
-      src: getImageUrl(project, "gallery/image2.png"),
-      alt: "Mobile View",
-    },
-  ];
-
   const displayImages =
-    galleryImages.length > 0 ? galleryImages : galleryImagesPlaceholder;
+    galleryImages.length > 0
+      ? galleryImages
+      : [
+          {
+            src: getImageUrl(project, "gallery/image1.png"),
+            alt: "Desktop View",
+          },
+          {
+            src: getImageUrl(project, "gallery/image2.png"),
+            alt: "Mobile View",
+          },
+        ];
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("pt-BR", {
-      year: "numeric",
-      month: "long",
-    });
+    return date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
   };
+
+  const marqueeItems = [
+    project.name.replace(/-/g, " ").toUpperCase(),
+    "•",
+    "CASE STUDY",
+    "•",
+    project.language?.toUpperCase() || "DEVELOPMENT",
+    "•",
+  ];
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 relative overflow-hidden ${
+      onMouseMove={handleMouseMove}
+      className={`min-h-screen transition-colors duration-700 relative overflow-hidden ${
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
       <Header />
 
-      <div className="pt-32 pb-20">
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-0 opacity-100"
+        style={{ background }}
+      />
+
+      <div className="pt-40 lg:pt-48 pb-20 relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal direction="up">
             <Link
               href="/#projects"
-              className={`group inline-flex items-center font-mono gap-3 mb-12 p-3 rounded-xl transition-all duration-300 hover:scale-105 ${
+              className={`group inline-flex items-center gap-2 mb-16 p-2 rounded-full transition-all duration-500 border ${
                 theme === "dark"
-                  ? "text-gray-400 hover:text-neon-green bg-gray-900/40 hover:bg-gray-800/60 border border-gray-800/30 hover:border-neon-green/40"
-                  : "text-gray-600 hover:text-neon-green bg-gray-100/60 hover:bg-gray-200/80 border border-gray-300/30 hover:border-neon-green/40"
+                  ? "text-gray-500 border-white/10 hover:border-white/20 hover:text-white"
+                  : "text-gray-400 border-black/10 hover:border-black/20 hover:text-black"
               }`}
             >
-              <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-              <span>{t("project", "back")}</span>
+              <div className="w-8 h-8 rounded-full bg-neon-green/10 flex items-center justify-center group-hover:bg-neon-green/20 transition-all duration-500">
+                <ArrowLeft className="w-4 h-4 text-neon-green" />
+              </div>
+              <span className="text-[10px] font-mono font-black uppercase tracking-[0.2em] pr-4">
+                {t("project", "back")}
+              </span>
             </Link>
           </ScrollReveal>
 
-          <div className="text-center mb-20">
-            <ScrollReveal direction="up" delay={100}>
-              <div
-                className={`inline-block mb-6 px-4 py-2 rounded-full text-sm font-semibold font-mono ${
-                  theme === "dark"
-                    ? "bg-neon-green/10 text-neon-green border border-neon-green/20"
-                    : "bg-neon-green/10 text-neon-green border border-neon-green/30"
-                }`}
-              >
-                {formatDate(project.created_at)}
-              </div>
-              <h1
-                className={`text-5xl sm:text-6xl lg:text-8xl font-black mb-6 transition-colors duration-300 uppercase tracking-tight ${
-                  theme === "dark"
-                    ? "text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text"
-                    : "text-black"
-                }`}
-                style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(135deg, #ffffff 0%, #14b8a6 100%)"
-                      : undefined,
-                  WebkitBackgroundClip: theme === "dark" ? "text" : undefined,
-                  WebkitTextFillColor:
-                    theme === "dark" ? "transparent" : undefined,
-                }}
-              >
-                {project.name.replace(/-/g, " ") || project.title}
-              </h1>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal direction="up" delay={200}>
-            <div className="flex flex-wrap gap-4 justify-center mb-16">
-              {project.homepage && (
-                <a
-                  href={project.homepage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group relative inline-flex items-center font-mono gap-3 px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 overflow-hidden ${
-                    theme === "dark"
-                      ? "bg-neon-green text-black hover:bg-neon-green-bright hover:shadow-lg hover:shadow-neon-green/50"
-                      : "bg-neon-green text-black hover:bg-neon-green-bright hover:shadow-lg hover:shadow-neon-green/50"
-                  }`}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-32 items-end">
+            <div className="lg:col-span-8">
+              <ScrollReveal direction="up" delay={100}>
+                <span className="text-neon-green font-mono text-xs uppercase tracking-[0.6em] font-black block mb-6">
+                  {formatDate(project.created_at)}
+                </span>
+                <h1
+                  className={`text-[12vw] lg:text-[10rem] font-black leading-none tracking-tighter ${theme === "dark" ? "text-white" : "text-black"}`}
                 >
-                  <ExternalLink className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-                  <span>{t("project", "deploy")}</span>
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                </a>
-              )}
-              {project.html_url && (
-                <a
-                  href={project.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group relative inline-flex items-center font-mono gap-3 px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 overflow-hidden border-2 ${
-                    theme === "dark"
-                      ? "border-neon-green/40 text-neon-green hover:border-neon-green hover:bg-neon-green/10"
-                      : "border-neon-green/40 text-neon-green hover:border-neon-green hover:bg-neon-green/10"
-                  }`}
-                >
-                  <Github className="w-5 h-5" />
-                  <span>{t("project", "repository")}</span>
-                </a>
-              )}
+                  {project.name.replace(/-/g, " ")}
+                </h1>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
+
+            <div className="lg:col-span-4 pb-4">
+              <ScrollReveal direction="up" delay={200}>
+                <div className="flex flex-col gap-4">
+                  {project.homepage && (
+                    <a
+                      href={project.homepage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col gap-1 w-fit"
+                    >
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                      >
+                        Live Preview
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}
+                        >
+                          Visit Site
+                        </span>
+                        <ArrowUpRight className="w-5 h-5 text-neon-green opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500" />
+                      </div>
+                    </a>
+                  )}
+                  {project.html_url && (
+                    <a
+                      href={project.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col gap-1 w-fit"
+                    >
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                      >
+                        Source Code
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}
+                        >
+                          GitHub Repository
+                        </span>
+                        <Github className="w-5 h-5 text-neon-green opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500" />
+                      </div>
+                    </a>
+                  )}
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
 
           <ScrollReveal direction="up" delay={300}>
-            <div className="mb-20">
-              <div
-                className={`relative aspect-video rounded-3xl overflow-hidden group ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-gray-900/40 via-gray-800/40 to-gray-900/40 backdrop-blur-xl border border-gray-800/30"
-                    : "bg-gradient-to-br from-white/40 via-gray-50/40 to-white/40 backdrop-blur-xl border border-gray-300/30"
-                } shadow-2xl`}
-                style={{
-                  clipPath:
-                    "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                }}
-              >
-                <Image
-                  src={getImageUrl(project, "preview.webp")}
-                  alt={project.name || project.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div
-                  className={`absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-0 ${
-                    theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/15"
-                  }`}
-                />
-              </div>
+            <div className="relative aspect-video lg:aspect-[21/9] rounded-[3.5rem] overflow-hidden mb-32 border border-white/[0.05]">
+              <Image
+                src={getImageUrl(project, "preview.webp")}
+                alt={project.name}
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
           </ScrollReveal>
 
-          <ScrollReveal direction="up" delay={350}>
-            <div className="text-center mb-12">
-              <h2
-                className={`text-4xl sm:text-5xl font-black mb-4 uppercase tracking-tight transition-colors duration-300 ${
-                  theme === "dark" ? "text-white" : "text-black"
-                }`}
-                style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(135deg, #ffffff 0%, #14b8a6 100%)"
-                      : "linear-gradient(135deg, #000000 0%, #14b8a6 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Detalhes do Projeto
-              </h2>
-              <div className="w-24 h-1 mx-auto bg-neon-green rounded-full"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-32">
+            <div className="lg:col-span-7">
+              <ScrollReveal direction="up">
+                <div className="space-y-12">
+                  <div className="space-y-6">
+                    <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                      Abstract
+                    </span>
+                    <h2
+                      className={`text-3xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                    >
+                      The vision behind the code.
+                    </h2>
+                    <p
+                      className={`text-xl lg:text-2xl leading-relaxed font-medium ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
-            <ScrollReveal direction="left" delay={400}>
-              <div
-                className={`lg:col-span-2 group relative rounded-3xl p-10 transition-all duration-700 hover:scale-[1.02] ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-gray-900/50 via-gray-800/50 to-gray-900/50 backdrop-blur-xl border-2 border-gray-800/40 hover:border-neon-green/50"
-                    : "bg-gradient-to-br from-white/50 via-gray-50/50 to-white/50 backdrop-blur-xl border-2 border-gray-300/40 hover:border-neon-green/50"
-                } shadow-2xl hover:shadow-neon-green/20 overflow-hidden`}
-                style={{
-                  clipPath:
-                    "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                }}
-              >
-                <div
-                  className={`absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-40 ${
-                    theme === "dark" ? "bg-neon-green/25" : "bg-neon-green/20"
-                  }`}
-                />
-                <div
-                  className={`absolute -bottom-20 -left-20 w-64 h-64 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-30 ${
-                    theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/15"
-                  }`}
-                />
-
-                <div className="flex items-center gap-4 mb-8 relative z-10">
-                  <div
-                    className={`p-3 rounded-xl ${
-                      theme === "dark"
-                        ? "bg-neon-green/20 border border-neon-green/30"
-                        : "bg-neon-green/15 border border-neon-green/30"
-                    }`}
-                  >
-                    <Code className="w-6 h-6 text-neon-green" />
-                  </div>
-                  <h3
-                    className={`text-3xl font-black transition-all duration-500 uppercase tracking-tight ${
-                      theme === "dark"
-                        ? "text-white group-hover:text-neon-green"
-                        : "text-black group-hover:text-neon-green"
-                    }`}
-                  >
-                    {t("project", "description")}
-                  </h3>
-                </div>
-
-                <div
-                  className={`h-px mb-8 relative z-10 ${
-                    theme === "dark"
-                      ? "bg-gradient-to-r from-transparent via-gray-700 to-transparent"
-                      : "bg-gradient-to-r from-transparent via-gray-300 to-transparent"
-                  }`}
-                />
-
-                <p
-                  className={`relative z-10 leading-relaxed text-xl transition-colors duration-300 font-mono ${
-                    theme === "dark"
-                      ? "text-gray-300 group-hover:text-gray-100"
-                      : "text-gray-700 group-hover:text-gray-900"
-                  }`}
-                >
-                  {project.description}
-                </p>
-
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-3xl overflow-hidden">
-                  <div
-                    className="absolute inset-0 rounded-3xl"
-                    style={{
-                      border: "2px solid rgba(20, 184, 166, 0.3)",
-                      filter: "blur(8px)",
-                      clipPath:
-                        "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                    }}
-                  />
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal direction="right" delay={400}>
-              <div
-                className={`group relative rounded-3xl p-10 transition-all duration-700 hover:scale-[1.02] ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-gray-900/50 via-gray-800/50 to-gray-900/50 backdrop-blur-xl border-2 border-gray-800/40 hover:border-neon-green/50"
-                    : "bg-gradient-to-br from-white/50 via-gray-50/50 to-white/50 backdrop-blur-xl border-2 border-gray-300/40 hover:border-neon-green/50"
-                } shadow-2xl hover:shadow-neon-green/20 overflow-hidden`}
-                style={{
-                  clipPath:
-                    "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                }}
-              >
-                <div
-                  className={`absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-40 ${
-                    theme === "dark" ? "bg-neon-green/25" : "bg-neon-green/20"
-                  }`}
-                />
-                <div
-                  className={`absolute -bottom-16 -left-16 w-48 h-48 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-30 ${
-                    theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/15"
-                  }`}
-                />
-
-                <div className="flex items-center gap-4 mb-8 relative z-10">
-                  <div
-                    className={`p-3 rounded-xl ${
-                      theme === "dark"
-                        ? "bg-neon-green/20 border border-neon-green/30"
-                        : "bg-neon-green/15 border border-neon-green/30"
-                    }`}
-                  >
-                    <Calendar className="w-6 h-6 text-neon-green" />
-                  </div>
-                  <h3
-                    className={`text-2xl font-black transition-all duration-500 uppercase tracking-tight ${
-                      theme === "dark"
-                        ? "text-white group-hover:text-neon-green"
-                        : "text-black group-hover:text-neon-green"
-                    }`}
-                  >
-                    Informações
-                  </h3>
-                </div>
-
-                <div
-                  className={`h-px mb-8 relative z-10 ${
-                    theme === "dark"
-                      ? "bg-gradient-to-r from-transparent via-gray-700 to-transparent"
-                      : "bg-gradient-to-r from-transparent via-gray-300 to-transparent"
-                  }`}
-                />
-
-                <div className="relative z-10 space-y-6">
-                  <div
-                    className={`group/item flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
-                      theme === "dark"
-                        ? "bg-gray-800/40 hover:bg-gray-800/60 border border-gray-700/30 hover:border-neon-green/40"
-                        : "bg-gray-100/60 hover:bg-gray-100/80 border border-gray-300/30 hover:border-neon-green/40"
-                    }`}
-                  >
-                    <div
-                      className={`p-3 rounded-lg transition-all duration-300 ${
-                        theme === "dark"
-                          ? "bg-neon-green/10 group-hover/item:bg-neon-green/20"
-                          : "bg-neon-green/10 group-hover/item:bg-neon-green/20"
-                      }`}
-                    >
-                      <Calendar
-                        className={`w-6 h-6 transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-neon-green group-hover/item:text-neon-green-bright"
-                            : "text-neon-green group-hover/item:text-neon-green-bright"
-                        }`}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <span
-                        className={`block font-mono text-base font-semibold transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-gray-200 group-hover/item:text-white"
-                            : "text-gray-800 group-hover/item:text-black"
-                        }`}
-                      >
-                        {formatDate(project.created_at)}
-                      </span>
-                      <span
-                        className={`block font-mono text-xs mt-1 transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-gray-400 group-hover/item:text-gray-300"
-                            : "text-gray-500 group-hover/item:text-gray-600"
-                        }`}
-                      >
-                        Data de criação
-                      </span>
+            <div className="lg:col-span-5 space-y-12">
+              <ScrollReveal direction="up" delay={200}>
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                      Technologies
+                    </span>
+                    <div className="flex flex-wrap gap-3">
+                      {projectTechs.map((tech: any) => (
+                        <div
+                          key={tech.id}
+                          className={`flex items-center gap-3 px-5 py-3 rounded-2xl border transition-all duration-500 group ${
+                            theme === "dark"
+                              ? "bg-white/[0.02] border-white/[0.05] hover:border-neon-green/20"
+                              : "bg-black/[0.02] border-black/[0.05] hover:bg-white hover:shadow-xl"
+                          }`}
+                        >
+                          <tech.image
+                            width={20}
+                            height={20}
+                            alt={tech.name}
+                            className="grayscale group-hover:grayscale-0 transition-all duration-500"
+                          />
+                          <span
+                            className={`text-[10px] font-mono font-black uppercase tracking-widest ${theme === "dark" ? "text-gray-500 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}
+                          >
+                            {tech.name}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  <div
-                    className={`group/item flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
-                      theme === "dark"
-                        ? "bg-gray-800/40 hover:bg-gray-800/60 border border-gray-700/30 hover:border-neon-green/40"
-                        : "bg-gray-100/60 hover:bg-gray-100/80 border border-gray-300/30 hover:border-neon-green/40"
-                    }`}
-                  >
-                    <div
-                      className={`p-3 rounded-lg transition-all duration-300 ${
-                        theme === "dark"
-                          ? "bg-neon-green/10 group-hover/item:bg-neon-green/20"
-                          : "bg-neon-green/10 group-hover/item:bg-neon-green/20"
-                      }`}
-                    >
-                      <Code
-                        className={`w-6 h-6 transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-neon-green group-hover/item:text-neon-green-bright"
-                            : "text-neon-green group-hover/item:text-neon-green-bright"
-                        }`}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <span
-                        className={`block font-mono text-base font-semibold transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-gray-200 group-hover/item:text-white"
-                            : "text-gray-800 group-hover/item:text-black"
-                        }`}
-                      >
-                        {project.language || "N/A"}
-                      </span>
-                      <span
-                        className={`block font-mono text-xs mt-1 transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-gray-400 group-hover/item:text-gray-300"
-                            : "text-gray-500 group-hover/item:text-gray-600"
-                        }`}
-                      >
-                        Linguagem principal
-                      </span>
+                  <div className="space-y-4 pt-8 border-t border-white/[0.05]">
+                    <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                      System Specs
+                    </span>
+                    <div className="grid grid-cols-2 gap-8">
+                      <div>
+                        <span
+                          className={`block text-[10px] font-mono uppercase tracking-widest mb-1 ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                        >
+                          Language
+                        </span>
+                        <span
+                          className={`text-lg font-bold ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
+                        >
+                          {project.language || "TypeScript"}
+                        </span>
+                      </div>
+                      <div>
+                        <span
+                          className={`block text-[10px] font-mono uppercase tracking-widest mb-1 ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                        >
+                          Timeline
+                        </span>
+                        <span
+                          className={`text-lg font-bold ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
+                        >
+                          {formatDate(project.created_at)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-3xl overflow-hidden">
-                  <div
-                    className="absolute inset-0 rounded-3xl"
-                    style={{
-                      border: "2px solid rgba(20, 184, 166, 0.3)",
-                      filter: "blur(8px)",
-                      clipPath:
-                        "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                    }}
-                  />
-                </div>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
+            </div>
           </div>
 
-          <ScrollReveal direction="up" delay={500}>
-            <div className="mb-20">
-              <h2
-                className={`text-3xl font-black mb-8 uppercase tracking-tight transition-colors duration-300 ${
-                  theme === "dark" ? "text-white" : "text-black"
-                }`}
-              >
-                {t("project", "technologies")}
-              </h2>
-              <div
-                className={`group relative rounded-3xl p-8 transition-all duration-700 ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-gray-900/40 via-gray-800/40 to-gray-900/40 backdrop-blur-xl border border-gray-800/30 hover:border-neon-green/20"
-                    : "bg-gradient-to-br from-white/40 via-gray-50/40 to-white/40 backdrop-blur-xl border border-gray-300/30 hover:border-neon-green/40"
-                } shadow-2xl hover:shadow-neon-green/10 overflow-hidden`}
-                style={{
-                  clipPath:
-                    "polygon(0% 0%, 100% 0%, 100% 98%, 98% 100%, 2% 100%, 0% 98%)",
-                }}
-              >
+          <ScrollReveal direction="up">
+            <div className="space-y-12 mb-32">
+              <div className="flex items-center gap-8">
+                <h3
+                  className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                >
+                  Gallery
+                </h3>
                 <div
-                  className={`absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 opacity-30 ${
-                    theme === "dark" ? "bg-neon-green/20" : "bg-neon-green/15"
-                  }`}
+                  className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}
                 />
-                <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {projectTechs.map((tech: any) => (
-                    <div
-                      key={tech.id}
-                      className={`group/tech flex flex-col items-center p-4 rounded-xl transition-all duration-300 hover:scale-110 ${
-                        theme === "dark"
-                          ? "bg-gray-800/40 hover:bg-gray-800/60 border border-gray-700/30 hover:border-neon-green/40"
-                          : "bg-gray-100/60 hover:bg-gray-100/80 border border-gray-300/30 hover:border-neon-green/40"
-                      }`}
-                    >
-                      <div className="mb-3 transition-transform duration-300 group-hover/tech:scale-125">
-                        <tech.image width={40} height={40} alt={tech.name} />
-                      </div>
-                      <span
-                        className={`text-xs font-medium font-mono text-center transition-colors duration-300 ${
-                          theme === "dark"
-                            ? "text-gray-300 group-hover/tech:text-neon-green"
-                            : "text-gray-700 group-hover/tech:text-neon-green"
-                        }`}
-                      >
-                        {tech.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={600}>
-            <div className="mb-20">
-              <h3
-                className={`text-3xl font-black mb-8 uppercase tracking-tight transition-colors duration-300 ${
-                  theme === "dark" ? "text-white" : "text-black"
-                }`}
-              >
-                {t("project", "gallery")}
-              </h3>
               <ImageGallery images={displayImages} />
             </div>
           </ScrollReveal>
         </div>
 
-        <MarqueeSection
-          items={text}
-          renderItem={(text) => (
-            <div key={text}>
-              <text className="text-6xl text-neon-green sm:text-8xl lg:text-[15rem] font-black transition-colors duration-300 uppercase">
-                {text}
-              </text>
-            </div>
-          )}
-        />
+        <div className="mt-20 opacity-20 grayscale hover:grayscale-0 transition-all duration-1000">
+          <MarqueeSection
+            items={marqueeItems}
+            renderItem={(text, index) => (
+              <div key={`${text}-${index}`} className="px-10">
+                <span
+                  className={`text-6xl lg:text-[15rem] font-black uppercase tracking-tighter transition-all duration-700 select-none ${
+                    index % 2 === 0
+                      ? "text-neon-green"
+                      : theme === "dark"
+                        ? "text-transparent stroke-white/10 [webkit-text-stroke:2px_rgba(255,255,255,0.05)]"
+                        : "text-transparent stroke-black/10 [webkit-text-stroke:2px_rgba(0,0,0,0.05)]"
+                  }`}
+                >
+                  {text}
+                </span>
+              </div>
+            )}
+          />
+        </div>
       </div>
     </div>
   );
