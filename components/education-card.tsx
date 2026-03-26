@@ -1,5 +1,8 @@
-import { ScrollReveal } from "@/components/scroll-reveal";
+"use client";
+
 import { useTheme } from "@/contexts/theme-context";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 
 interface EducationCardProps {
   course: string;
@@ -9,51 +12,85 @@ interface EducationCardProps {
   index?: number;
 }
 
-export function EducationCard({ course, institution, start, description, index = 0 }: EducationCardProps) {
+export function EducationCard({
+  course,
+  institution,
+  start,
+  description,
+  index = 0,
+}: EducationCardProps) {
   const { theme } = useTheme();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const background = useMotionTemplate`
+    radial-gradient(
+      150px circle at ${mouseX}px ${mouseY}px,
+      rgba(20, 184, 166, 0.08),
+      transparent 80%
+    )
+  `;
 
   return (
-    <ScrollReveal direction="left" delay={index * 200}>
-      <div className="group hover:transform hover:scale-105 transition-all duration-300">
-        <h3
-          className={`text-2xl font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 ${
-            theme === "dark" ? "text-white" : "text-black"
-          }`}
-        >
-          {course}
-        </h3>
-        <div
-          className={`mb-2 transition-colors duration-300 ${
-            theme === "dark"
-              ? "text-gray-400 group-hover:text-gray-300"
-              : "text-gray-600 group-hover:text-gray-700"
-          }`}
-        >
-          {institution}
-        </div>
-        <div
-          className={`text-sm mb-4 transition-colors duration-300 ${
-            theme === "dark"
-              ? "text-gray-500 group-hover:text-gray-400"
-              : "text-gray-500 group-hover:text-gray-600"
-          }`}
-        >
-          {start}
-        </div>
-        {description && (
-          <ul
-            className={`text-sm mb-2 transition-colors duration-300 ${
-              theme === "dark"
-                ? "text-gray-300 group-hover:text-white"
-                : "text-gray-700 group-hover:text-black"
+    <ScrollReveal direction="up" delay={index * 100}>
+      <motion.div
+        onMouseMove={handleMouseMove}
+        className={`group relative p-8 rounded-3xl transition-all duration-500 border ${
+          theme === "dark"
+            ? "border-transparent hover:border-white/[0.05] hover:bg-white/[0.02]"
+            : "border-transparent hover:border-black/[0.05] hover:bg-black/[0.02]"
+        }`}
+      >
+        {/* Subtle Hover Glow */}
+        <motion.div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 rounded-3xl"
+          style={{ background }}
+        />
+
+        <div className="relative z-10 space-y-4">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+              Formation
+            </span>
+            <span className={`text-[10px] font-mono font-bold tracking-widest ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+               {start}
+            </span>
+          </div>
+
+          <h3
+            className={`text-xl lg:text-2xl font-black transition-colors duration-500 group-hover:text-neon-green ${
+              theme === "dark" ? "text-white" : "text-black"
             }`}
           >
-            {description.map((desc, i) => (
-              <li className="text-neon-green" key={i}>- {desc}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+            {course}
+          </h3>
+
+          <div className="flex items-center gap-3">
+             <div className={`w-1.5 h-1.5 rounded-full bg-neon-green`} />
+             <span className={`text-sm font-bold uppercase tracking-widest ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+               {institution}
+             </span>
+          </div>
+
+          {description && description.length > 0 && (
+            <div className="space-y-3 pt-4">
+              {description.map((desc, i) => (
+                <p key={i} className={`text-sm leading-relaxed transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-500 group-hover:text-gray-300" : "text-gray-600 group-hover:text-gray-900"
+                }`}>
+                  {desc}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      </motion.div>
     </ScrollReveal>
   );
-} 
+}
