@@ -20,6 +20,7 @@ export const translations = {
       engineer: "ENGINEER",
     },
     about: {
+      section_subtitle: "INTRO",
       title: "About Me",
       hero_text_1: "Crafting robust",
       hero_text_2: "architectures",
@@ -43,16 +44,19 @@ export const translations = {
       bg_text: "ABOUT",
     },
     technologies: {
+      section_subtitle: "STACK",
       title: "Technologies",
       frontend: "Frontend",
       backend: "Backend",
       tools: "Tools",
     },
     projects: {
+      section_subtitle: "WORK",
       title: "Projects",
       details: "Details",
     },
     experience: {
+      section_subtitle: "HISTORY",
       title: "Experience",
       projects: "Projects",
       satisfied: "Satisfied",
@@ -60,12 +64,14 @@ export const translations = {
       technologies_used: "Technologies used in this role",
     },
     education: {
+      section_subtitle: "BACKGROUND",
       title: "Education",
       subtitle: "My academic background",
       formation: "Formation",
       certificates: "Certificates",
     },
     contact: {
+      section_subtitle: "TALK",
       title: "Contact",
       description:
         "Looking to start a project or you need consultation? Feel free to contact me.",
@@ -141,6 +147,7 @@ export const translations = {
       engineer: "ENGENHEIRO",
     },
     about: {
+      section_subtitle: "INTRO",
       title: "Sobre Mim",
       hero_text_1: "Criando",
       hero_text_2: "arquiteturas",
@@ -164,16 +171,19 @@ export const translations = {
       bg_text: "SOBRE",
     },
     technologies: {
+      section_subtitle: "STACK",
       title: "Tecnologias",
       frontend: "Frontend",
       backend: "Backend",
       tools: "Ferramentas",
     },
     projects: {
+      section_subtitle: "TRABALHO",
       title: "Projetos",
       details: "Detalhes",
     },
     experience: {
+      section_subtitle: "HISTÓRIA",
       title: "Experiência",
       projects: "Projetos",
       satisfied: "Satisfação",
@@ -181,12 +191,14 @@ export const translations = {
       technologies_used: "Tecnologias utilizadas neste cargo",
     },
     education: {
+      section_subtitle: "FORMAÇÃO",
       title: "Educação",
       subtitle: "Minha formação acadêmica",
       formation: "Formação",
       certificates: "Certificados",
     },
     contact: {
+      section_subtitle: "CONTATO",
       title: "Contato",
       description:
         "Procurando iniciar um projeto ou precisa de uma consulta? Sinta-se à vontade para entrar em contato comigo.",

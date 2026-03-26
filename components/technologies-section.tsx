@@ -116,7 +116,11 @@ export function TechnologiesSection() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="up" className="mb-24">
-          <SectionTitle title={t("technologies", "title")} />
+          <SectionTitle 
+            title={t("technologies", "title")} 
+            index="02" 
+            subtitle={t("technologies", "section_subtitle")}
+          />
         </ScrollReveal>
 
         <div className="flex flex-col gap-24">

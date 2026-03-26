@@ -24,7 +24,11 @@ export function EducationSection() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="up" className="mb-32">
-          <SectionTitle title={t("education", "title")} />
+          <SectionTitle 
+            title={t("education", "title")} 
+            index="05" 
+            subtitle={t("education", "section_subtitle")}
+          />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">

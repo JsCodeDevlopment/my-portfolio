@@ -67,7 +67,11 @@ export function ContactSection() {
       
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="up" className="mb-24">
-          <SectionTitle title={t("contact", "title")} />
+          <SectionTitle 
+            title={t("contact", "title")} 
+            index="06" 
+            subtitle={t("contact", "section_subtitle")}
+          />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">

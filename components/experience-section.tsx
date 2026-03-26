@@ -75,7 +75,11 @@ export function ExperienceSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="up" className="mb-32">
           <div className="flex flex-col gap-6">
-            <SectionTitle title={t("experience", "title")} />
+            <SectionTitle 
+              title={t("experience", "title")} 
+              index="04" 
+              subtitle={t("experience", "section_subtitle")}
+            />
           </div>
         </ScrollReveal>
 
