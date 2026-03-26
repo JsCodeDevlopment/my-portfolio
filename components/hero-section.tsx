@@ -1,161 +1,157 @@
 "use client";
 
-import { Spotlight } from "@/components/ui/spotlight-new";
 import { useTranslation } from "@/hooks/use-translation";
+import { ArrowDown } from "lucide-react";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
 import Particles from "./ui/particles";
 
 export function HeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { theme } = useTheme();
   const { t } = useTranslation();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX - window.innerWidth / 2) * 0.05,
-        y: (e.clientY - window.innerHeight / 2) * 0.05,
-      });
-    };
+  function handleMouseMove({ clientX, clientY }: any) {
+    mouseX.set(clientX);
+    mouseY.set(clientY);
+  }
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const thisIsMyName = ["J", "O", "N", "A", "T", "A", "S"];
+  const background = useMotionTemplate`
+    radial-gradient(
+      800px circle at ${mouseX}px ${mouseY}px,
+      rgba(20, 184, 166, 0.07),
+      transparent 80%
+    )
+  `;
 
   const years = new Date().getFullYear() - 2023;
 
   return (
     <section
       id="home"
-      className={`min-h-screen flex items-center justify-center pt-20 relative overflow-hidden transition-colors duration-300 ${
+      onMouseMove={handleMouseMove}
+      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
       <div
-        className={`absolute inset-0 ${
+        className={`absolute inset-0 z-0 ${
           theme === "dark"
-            ? "bg-[linear-gradient(rgba(20,184,166,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.1)_1px,transparent_1px)]"
-            : "bg-[linear-gradient(rgba(20,184,166,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.2)_1px,transparent_1px)]"
-        } bg-[size:50px_50px]`}
-      ></div>
+            ? "bg-[linear-gradient(rgba(20,184,166,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.05)_1px,transparent_1px)]"
+            : "bg-[linear-gradient(rgba(20,184,166,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.1)_1px,transparent_1px)]"
+        } bg-[size:60px_60px]`}
+      />
 
-      <Spotlight />
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-0 opacity-100"
+        style={{ background }}
+      />
 
       <Particles
-        className="absolute inset-0 z-0"
-        quantity={60}
-        staticity={50}
+        className="absolute inset-0 z-10"
+        quantity={80}
+        staticity={30}
         ease={50}
       />
 
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
-        <ScrollReveal direction="fade" className="text-center mb-8">
-          <p
-            className={`text-sm tracking-[0.2em] font-mono uppercase transition-colors duration-300 ${
-              theme === "dark" ? "text-gray-500" : "text-gray-600"
-            }`}
-          >
-            {t("hero", "greeting")}
-          </p>
-        </ScrollReveal>
-
-        <div className="flex items-center justify-center min-h-[60vh] relative">
-          <div className="relative">
-            <div className="flex items-center justify-center flex-wrap">
-              {thisIsMyName.map((letter, index) => (
-                <ScrollReveal
-                  key={index}
-                  direction="up"
-                  delay={index * 100}
-                  duration={600}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-20">
+        <div className="flex flex-col items-center text-center">
+          <ScrollReveal direction="up" delay={200}>
+            <div className="mb-12 relative">
+              <div className="relative group">
+                <div
+                  className={`w-32 h-32 lg:w-40 lg:h-40 rounded-[2.5rem] overflow-hidden border-2 transition-all duration-700 ${
+                    theme === "dark"
+                      ? "border-white/10 group-hover:border-neon-green/50"
+                      : "border-black/10 group-hover:border-black/30"
+                  }`}
                 >
-                  <div
-                    className="text-[8rem]  md:text-[12rem] xl:text-[200px] leading-none font-black select-none text-neon-green transition-all duration-500 cursor-default hover:scale-110"
-                    style={{
-                      textShadow:
-                        theme === "dark"
-                          ? "0 0 30px rgba(20, 184, 166, 0.5)"
-                          : "0 0 20px rgba(20, 184, 166, 0.3)",
-                    }}
-                  >
-                    {letter}
-                  </div>
-                </ScrollReveal>
-              ))}
+                  <Image
+                    src="/images/jonatas-profile.jpg"
+                    alt="Jonatas Silva"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                    priority
+                  />
+                </div>
+                <div className="absolute -inset-4 border border-neon-green/10 rounded-[3rem] animate-[spin_20s_linear_infinite] -z-10" />
+                <div className="absolute -inset-8 border border-neon-green/5 rounded-[3.5rem] animate-[spin_30s_linear_reverse_infinite] -z-10" />
+              </div>
             </div>
+          </ScrollReveal>
 
-            <ScrollReveal
-              direction="up"
-              delay={800}
-              duration={600}
-              className="mt-4"
+          <div className="space-y-2 pointer-events-none mb-10">
+            <ScrollReveal direction="up" delay={400}>
+              <span className="text-neon-green font-mono text-xs uppercase tracking-[0.6em] font-black block mb-4">
+                {t("hero", "greeting")}
+              </span>
+            </ScrollReveal>
+
+            <ScrollReveal direction="up" delay={600}>
+              <h1
+                className={`text-[12vw] lg:text-[10rem] font-black leading-none tracking-tighter ${theme === "dark" ? "text-white" : "text-black"}`}
+              >
+                JONATAS{" "}
+                <span className="text-neon-green inline-block transition-all duration-700">
+                  SILVA
+                </span>
+              </h1>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal direction="up" delay={800}>
+            <p
+              className={`text-lg lg:text-2xl font-mono font-medium max-w-2xl mx-auto tracking-tight transition-colors duration-500 ${
+                theme === "dark" ? "text-gray-500" : "text-gray-400"
+              }`}
+            >
+              {t("hero", "description", { years: years.toString() })}
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={1000} className="mt-20">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className={`group flex flex-col items-center gap-4 transition-all duration-500`}
             >
               <div
-                className="text-[8rem] md:text-[12rem] xl:text-[200px] font-black leading-none select-none text-neon-green transition-all duration-500 cursor-default text-center hover:scale-110"
-                style={{
-                  textShadow:
-                    theme === "dark"
-                      ? "0 0 30px rgba(20, 184, 166, 0.5)"
-                      : "0 0 20px rgba(20, 184, 166, 0.3)",
-                }}
-              >
-                SILVA
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal
-              direction="up"
-              delay={1000}
-              duration={600}
-              className="mt-6"
-            >
-              <p
-                className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-5 font-mono font-thin text-center max-w-xl mx-auto transition-colors duration-300 ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 ${
+                  theme === "dark"
+                    ? "border-white/10 group-hover:border-neon-green"
+                    : "border-black/10 group-hover:border-black"
                 }`}
               >
-                {t("hero", "description", { years: years.toString() })}
-              </p>
-            </ScrollReveal>
-
-            <div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 ease-out"
-              style={{
-                transform: `translate(${-50 + mousePosition.x}%, ${
-                  -50 + mousePosition.y
-                }%)`,
-              }}
-            >
-              <ScrollReveal direction="scale" delay={1000} duration={800}>
-                <div className="relative group">
-                  <div
-                    className={`w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full overflow-hidden border-4 border-neon-green shadow-2xl transition-all duration-300 hover:scale-110 ${
-                      theme === "dark"
-                        ? "shadow-neon-green/50 hover:shadow-neon-green/80"
-                        : "shadow-neon-green/30 hover:shadow-neon-green/60"
-                    }`}
-                  >
-                    <Image
-                      src="/images/jonatas-profile.jpg"
-                      alt="Jonatas Silva"
-                      width={224}
-                      height={224}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      priority
-                    />
-                  </div>
-                  <div className="absolute inset-0 rounded-full bg-neon-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
+                <ArrowDown
+                  className={`w-5 h-5 transition-all duration-500 ${theme === "dark" ? "text-gray-600 group-hover:text-neon-green" : "text-gray-400 group-hover:text-black"} group-hover:translate-y-1`}
+                />
+              </div>
+              <span
+                className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}
+              >
+                Explore Projects
+              </span>
+            </button>
+          </ScrollReveal>
         </div>
+      </div>
+
+      <div
+        className={`absolute top-1/4 -left-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
+      >
+        SOFTWARE
+      </div>
+      <div
+        className={`absolute bottom-1/4 -right-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
+      >
+        ENGINEER
       </div>
     </section>
   );
