@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 
 interface MarqueeProps<T> {
   items: T[];
-  renderItem: (item: T) => React.ReactNode;
+  renderItem: (item: T, index: number) => React.ReactNode;
 }
 
 export function MarqueeSection<T>({ items, renderItem }: MarqueeProps<T>) {
@@ -24,7 +24,7 @@ export function MarqueeSection<T>({ items, renderItem }: MarqueeProps<T>) {
         className={cn("[--duration:30s]", theme === "light" && "bg-black")}
       >
         {items.map((item, index) => (
-          <div key={index}>{renderItem(item)}</div>
+          <div key={index}>{renderItem(item, index)}</div>
         ))}
       </Marquee>
     </div>
