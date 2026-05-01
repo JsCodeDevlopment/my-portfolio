@@ -103,6 +103,8 @@ export function ExperienceSection() {
                 {...exp}
                 index={index}
                 total={experiences.length}
+                duration={exp.duration}
+                totalCompanyDuration={exp.totalCompanyDuration}
               />
             ))}
           </div>

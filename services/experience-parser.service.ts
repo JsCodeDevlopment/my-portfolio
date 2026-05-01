@@ -1,4 +1,5 @@
 import { Resume } from "@/hooks/use-experience";
+import { calculateMonths, formatDuration, parseResumeDate } from "@/utils/date-utils";
 
 export interface Experience {
   role: string;
@@ -7,6 +8,8 @@ export interface Experience {
   endDate: string;
   activities: string[];
   stack: string[];
+  duration?: string;
+  totalCompanyDuration?: string;
 }
 
 export class ExperienceParserService {
@@ -84,11 +87,11 @@ export class ExperienceParserService {
         experiencesSection = experiencesSection.slice(0, nextSectionIndex);
       }
 
-      const experiences = experiencesSection
+      const rawExperiences = experiencesSection
         .split("---")
         .filter((exp) => exp.trim());
 
-      return experiences
+      const experiences = rawExperiences
         .map((exp) => {
           const trimmed = exp.trim();
           if (!trimmed.includes("###")) return null;
@@ -140,6 +143,35 @@ export class ExperienceParserService {
           };
         })
         .filter(Boolean) as Experience[];
+
+      // Calculate durations
+      const companyDurations: Record<string, number> = {};
+      
+      experiences.forEach((exp) => {
+        const start = parseResumeDate(exp.startDate, resumeLang);
+        const end = parseResumeDate(exp.endDate, resumeLang);
+        const months = calculateMonths(start, end);
+        
+        exp.duration = formatDuration(months, resumeLang);
+        
+        // Sum total time per company
+        const companyKey = exp.company.toLowerCase().trim();
+        companyDurations[companyKey] = (companyDurations[companyKey] || 0) + months;
+      });
+
+      // Assign total company duration to the first (latest) role of each company
+      const processedCompanies = new Set<string>();
+      experiences.forEach((exp) => {
+        const companyKey = exp.company.toLowerCase().trim();
+        const hasMultipleRoles = experiences.filter(e => e.company.toLowerCase().trim() === companyKey).length > 1;
+
+        if (hasMultipleRoles && !processedCompanies.has(companyKey)) {
+          exp.totalCompanyDuration = formatDuration(companyDurations[companyKey], resumeLang);
+          processedCompanies.add(companyKey);
+        }
+      });
+
+      return experiences;
     } catch (error) {
       console.error("Error parsing experiences:", error);
       return [];

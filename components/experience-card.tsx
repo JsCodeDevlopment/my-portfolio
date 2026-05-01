@@ -13,6 +13,8 @@ interface ExperienceCardProps {
   stack: string[];
   index: number;
   total: number;
+  duration?: string;
+  totalCompanyDuration?: string;
 }
 
 export function ExperienceCard({
@@ -24,10 +26,13 @@ export function ExperienceCard({
   stack,
   index,
   total,
+  duration,
+  totalCompanyDuration,
 }: ExperienceCardProps) {
   const { theme } = useTheme();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const isEven = index % 2 === 0;
+  const isPT = language === "pt";
 
   // Mouse tilt effect
   const mouseX = useMotionValue(0);
@@ -92,8 +97,8 @@ export function ExperienceCard({
 
           {/* Header Section */}
           <div className="relative mb-8 pt-2">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+              <div className="flex-1">
                 <motion.h3
                   className={`text-3xl lg:text-4xl font-extrabold mb-3 leading-tight tracking-tight ${
                     theme === "dark" ? "text-white" : "text-black"
@@ -115,14 +120,38 @@ export function ExperienceCard({
                 </div>
               </div>
 
-              <div
-                className={`shrink-0 inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-widest transition-all duration-500 ${
-                  theme === "dark"
-                    ? "bg-white/5 text-gray-400 group-hover:bg-neon-green group-hover:text-black shadow-lg"
-                    : "bg-black/5 text-gray-600 group-hover:bg-black group-hover:text-white shadow-md"
-                }`}
-              >
-                {startDate} — {endDate}
+              <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
+                <div
+                  className={`inline-flex items-center gap-2 px-5 py-2 rounded-xl text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest transition-all duration-500 ${
+                    theme === "dark"
+                      ? "bg-white/5 text-gray-400 group-hover:bg-neon-green group-hover:text-black shadow-lg"
+                      : "bg-black/5 text-gray-600 group-hover:bg-black group-hover:text-white shadow-md"
+                  }`}
+                >
+                  {startDate} — {endDate}
+                </div>
+
+                {duration && (
+                  <div className="flex flex-col items-start md:items-end gap-1">
+                    <div
+                      className={`text-[10px] font-mono font-bold uppercase tracking-widest ${theme === "dark" ? "text-neon-green/80" : "text-neon-green"}`}
+                    >
+                      {duration}{" "}
+                      {totalCompanyDuration
+                        ? isPT
+                          ? "no cargo"
+                          : "in role"
+                        : ""}
+                    </div>
+                    {totalCompanyDuration && (
+                      <div
+                        className={`text-[10px] font-mono font-bold uppercase tracking-widest ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}
+                      >
+                        {isPT ? "Total:" : "Total:"} {totalCompanyDuration}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

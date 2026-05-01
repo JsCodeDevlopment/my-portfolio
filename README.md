@@ -1,148 +1,115 @@
-# Portfolio Pessoal
+# Jonatas Silva — Portfolio v2 (Ultra-Premium Minimalist)
 
-Portfolio moderno e responsivo desenvolvido com Next.js, TypeScript e Tailwind CSS, apresentando uma experiência de usuário imersiva com suporte a temas claro/escuro e internacionalização.
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://jonatas-silva-software-engineer.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+O **Portfolio v2** é uma evolução radical da minha presença digital, reimaginado sob o conceito de *Ultra-Premium Minimalism*. Esta versão foca em uma experiência cinematográfica, tipografia editorial de alto impacto e interações fluidas que transformam a navegação em uma jornada imersiva.
 
 <h1 align="center">
-  <img alt="Banner" title="#Banner" style="object-fit: cover;" src="https://jonatas-silva-software-engineer.vercel.app/preview.webp"  />
+  <img alt="Portfolio Preview" title="Portfolio v2" style="border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);" src="https://jonatas-silva-software-engineer.vercel.app/preview.webp" />
 </h1>
 
-## Funcionalidades
+---
 
-- 🌓 Tema claro/escuro com transições suaves
-- 🌐 Suporte a múltiplos idiomas (PT/EN)
-- 📱 Design totalmente responsivo
-- 🎨 Interface moderna com efeitos de glassmorphism
-- ⚡ Performance otimizada com Next.js
-- 🎯 Animações e transições fluidas
-- 📊 Integração com GitHub para projetos
-- 📬 Formulário de contato funcional
-- 🔍 SEO otimizado
-- 📱 PWA ready
+## ✨ O que há de novo na v2?
 
-## Estrutura do Projeto
+### 🎨 Design & Aesthetic
+- **Estética Ultra-Premium**: Interface refinada com glassmorphism avançado, grids dinâmicos e paleta de cores harmonizada (Neon Green accents).
+- **Tipografia Editorial**: Sistema de cabeçalhos de sessão inspirado em revistas de alta precisão, com marcadores de metadados (`SESSION NO.`) e legendas traduzíveis.
+- **Interações Cinematográficas**: Mouse followers inteligentes, revelações em scroll sincronizadas e efeitos de profundidade visual.
 
-```
+### 🌐 Arquitetura de Internacionalização (i18n)
+- **Sistema Centralizado**: Migração de hardcoded strings para um provider de tradução robusto (`translations/index.ts`).
+- **Localização Completa**: Suporte total a **Inglês** e **Português**, abrangendo desde mensagens de validação de formulários até estados de carregamento.
+- **Persistência Inteligente**: Sincronização automática entre preferência do usuário e contexto da aplicação.
+
+### ⚡ Performance & Tech Stack
+- **Framework**: [Next.js 15](https://nextjs.org/) com App Router.
+- **Animações**: [Motion/React](https://motion.dev/) (Framer Motion v12) para animações de alto desempenho.
+- **Estilização**: Tailwind CSS com variantes de tema customizadas.
+- **Formulários**: React Hook Form + Zod com validação internacionalizada.
+- **Dados**: Integração dinâmica com a API do GitHub para vitrine de projetos.
+
+### 📄 Dynamic Resume System
+- **Parser de Markdown Robusto**: Integração em tempo real com repositórios externos de currículo, transformando Markdown em componentes UI premium com alta fidelidade.
+- **Cálculo Inteligente de Experiência**: Algoritmo que calcula automaticamente o tempo de permanência (meses/anos) em cada cargo.
+- **Gestão de Promoções**: Identificação automática de múltiplos cargos na mesma empresa, exibindo o tempo total acumulado na organização.
+- **Resiliência de Dados**: Sistema de busca inteligente (fallback) que garante a exibição das experiências mesmo com variações nos cabeçalhos do arquivo de origem.
+
+---
+
+## 🛠️ Funcionalidades Principais
+
+- [x] **Dark/Light Mode**: Transição de tema com suavidade cinematográfica.
+- [x] **Language Switcher**: Troca instantânea de idioma sem recarregamento.
+- [x] **Experience Timeline**: Cronograma interativo com indicadores de progresso.
+- [x] **Smart Experience Durations**: Cálculo automático de tempo por cargo e tempo total por empresa.
+- [x] **Project Detail System**: Páginas de detalhes ricas com metadados e specs do sistema.
+- [x] **Tech Marquees**: Exibição dinâmica de stack em movimento infinito.
+- [x] **Contact Flow**: Formulário elegante integrado com EmailJS e notificações Toast.
+
+---
+
+## 📂 Organização do Código
+
+O projeto segue uma estrutura modular e escalável:
+
+```bash
 src/
-├── app/                    # Configuração do Next.js App Router
-│   ├── layout.tsx         # Layout principal
-│   └── page.tsx           # Página inicial
-├── components/            # Componentes React
-│   ├── ui/               # Componentes de UI reutilizáveis
-│   ├── header.tsx        # Cabeçalho com navegação
-│   ├── hero-section.tsx  # Seção hero
-│   ├── about-section.tsx # Seção sobre
-│   └── ...              # Outros componentes
-├── contexts/             # Contextos React
-│   ├── theme-context.tsx # Gerenciamento de tema
-│   └── language-context.tsx # Gerenciamento de idiomas
-├── hooks/               # Custom hooks
-│   ├── use-projects.tsx # Hook para projetos GitHub
-│   └── use-translation.tsx # Hook para traduções
-├── lib/                 # Utilitários
-│   └── utils.ts        # Funções utilitárias
-├── public/             # Arquivos estáticos
-│   ├── images/        # Imagens
-│   └── fonts/         # Fontes
-└── styles/            # Estilos globais
-    └── globals.css    # Estilos CSS globais
+├── app/                    # Next.js App Router (Layouts, Pages, Projects)
+├── components/             # Componentes de UI e Seções Hero/About/Work
+│   ├── ui/                # Base UI (Buttons, Marquees, Particles)
+│   └── forms/             # Componentes de formulário isolados
+├── contexts/               # Providers de Tema e Idioma (Global State)
+├── hooks/                  # Custom Hooks (useTranslation, useProjects)
+├── translations/           # Dicionário centralizado (en.ts | pt.ts)
+├── services/               # Parsers e serviços de integração de dados
+├── utils/                  # Utilitários de data, imagem e formatação
+└── constants/              # Configurações de tecnologias e dados estáticos
 ```
 
-## Arquitetura e Design
+---
 
-### Visão Geral da Arquitetura
+## 🚀 Como executar localmente
 
-O portfolio foi projetado seguindo princípios modernos de desenvolvimento web, com foco em performance, acessibilidade e experiência do usuário. A arquitetura é baseada em três pilares principais:
-
-1. **Componentização**
-   - Componentes reutilizáveis e modulares
-   - Separação clara de responsabilidades
-   - Props tipadas com TypeScript
-   - Contextos para estado global
-
-2. **Performance**
-   - Renderização otimizada com Next.js
-   - Lazy loading de componentes
-   - Imagens otimizadas
-   - Código dividido em chunks
-
-3. **UX/UI**
-   - Design responsivo
-   - Animações suaves
-   - Feedback visual imediato
-   - Navegação intuitiva
-
-### Fluxo de Dados
-
-```mermaid
-graph LR
-    A[Contexts] -->|Estado Global| B[Componentes]
-    B -->|Props| C[UI]
-    D[GitHub API] -->|Dados| E[Hooks]
-    E -->|Estado Local| B
+1. Clone o repositório:
+```bash
+git clone https://github.com/JsCodeDevlopment/portfolio.git
 ```
 
-### Decisões de Design
+2. Instale as dependências:
+```bash
+yarn install
+```
 
-1. **Tema Claro/Escuro**
-   - Por que implementar tema?
-     - Melhor experiência de leitura
-     - Preferência do usuário
-     - Redução de fadiga visual
-     - Economia de bateria em dispositivos móveis
-   - Implementação
-     - Context API para gerenciamento
-     - Persistência em localStorage
-     - Transições suaves
-     - Cores adaptativas
+3. Execute o ambiente de desenvolvimento:
+```bash
+yarn dev
+```
 
-2. **Internacionalização**
-   - Por que múltiplos idiomas?
-     - Alcance global
-     - Acessibilidade
-     - Experiência personalizada
-   - Implementação
-     - Context API para idiomas
-     - Arquivos de tradução JSON
-     - Detecção automática de idioma
-     - Persistência de preferência
+---
 
-3. **Responsividade**
-   - Por que design responsivo?
-     - Acesso em múltiplos dispositivos
-     - Melhor experiência mobile
-     - SEO otimizado
-   - Implementação
-     - Tailwind CSS para breakpoints
-     - Imagens responsivas
-     - Layouts adaptativos
-     - Touch-friendly
-
-
-## Tecnologias Utilizadas
+## 👨‍💻 Desenvolvedor
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" />
-  <img src="https://img.shields.io/badge/Radix_UI-000000?style=for-the-badge&logo=radix-ui&logoColor=white" />
-  <img src="https://img.shields.io/badge/Lucide_Icons-000000?style=for-the-badge&logo=lucide&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img src="https://avatars.githubusercontent.com/u/100796752?v=4" width="120" style="border-radius: 60px" />
+  <br />
+  <strong>Jonatas Silva</strong><br />
+  FullStack Developer | Software Engineer
 </div>
 
-## Desenvolvedor
-
-| Foto | Nome | Cargo |
-|------|------|-------|
-| <img src="https://avatars.githubusercontent.com/u/100796752?s=400&u=ae99bd456c6b274cd934d85a374a44340140e222&v=4" width="100"> | [Jonatas Silva](https://github.com/JsCodeDevlopment) | FullStack Developer |
-
-## Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+<div align="center">
+  <a href="https://github.com/JsCodeDevlopment">
+    <img src="https://img.shields.io/badge/GitHub-000?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://linkedin.com/in/jonatas-silva-software">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</div>
 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by <a href="https://github.com/JsCodeDevlopment">Jonatas Silva</a></sub>
-</div> 
+  <sub>Built with Excellence & React by <a href="https://github.com/JsCodeDevlopment">Jonatas Silva</a></sub>
+</div>
