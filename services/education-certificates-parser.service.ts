@@ -24,10 +24,9 @@ export class EducationCertificatesParserService {
     const courseMatch = isPT
       ? educationSection.match(/\*\*Curso:\*\*\s*(.+)/)
       : educationSection.match(/\*\*Degree:\*\*\s*(.+)/);
-    const institutionMatch = educationSection.match(/\*\*Instituição:\*\*\s*(.+)/) ||
-                            educationSection.match(/\*\*Institution:\*\*\s*(.+)/);
+    const institutionMatch = educationSection.match(/\*\*(?:Instituição|Institution):\*\*\s*(.+)/);
     const startMatch = isPT
-      ? educationSection.match(/\*\*Ingresso:\*\*\s*(.+)/)
+      ? educationSection.match(/\*\*(?:Ingresso|Início):\*\*\s*(.+)/)
       : educationSection.match(/\*\*Start Date:\*\*\s*(.+)/);
 
     const education: AcademicEducation | null = courseMatch && institutionMatch && startMatch
@@ -45,11 +44,16 @@ export class EducationCertificatesParserService {
     const certificates: Certificate[] = certBlocks
       .map(block => {
         if (!block.trim()) return null;
-        const [header, ...descLines] = block.split("\n").map(l => l.trim()).filter(Boolean);
+        const lines = block.split("\n").map(l => l.trim()).filter(Boolean);
+        const header = lines[0];
         if (!header) return null;
-        const headerMatch = header.match(/\*\*(.+)\*\*\s*—\s*(.+)/);
+        
+        // Support different dash types
+        const headerMatch = header.match(/\*\*(.+)\*\*\s*[–—-]\s*(.+)/);
         const title = headerMatch ? headerMatch[1].trim() : "";
         const institution = headerMatch ? headerMatch[2].trim() : "";
+        
+        const descLines = lines.slice(1);
         const description = descLines.join(" ").split(".").map(s => s.trim()).filter(Boolean);
         return { title, institution, description };
       })
@@ -57,4 +61,5 @@ export class EducationCertificatesParserService {
 
     return { education, certificates };
   }
-} 
+}
+ 
