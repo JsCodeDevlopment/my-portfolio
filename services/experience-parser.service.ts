@@ -16,8 +16,21 @@ export class ExperienceParserService {
       
       // Possible headers for the experience section
       const possibleHeaders = isPT 
-        ? ["## 💼 Experiência Profissional", "## Experiência Profissional", "## Experiência", "## 💼 Experiência"]
-        : ["## 💼 Work Experience", "## Work Experience", "## Experience", "## 💼 Experience"];
+        ? [
+            "## 💼 Experiência Profissional", 
+            "## Experiência Profissional", 
+            "## Experiência", 
+            "## 💼 Experiência",
+            "## 💼 Professional Experience" // In case mixed
+          ]
+        : [
+            "## 💼 Work Experience", 
+            "## Work Experience", 
+            "## Experience", 
+            "## 💼 Experience",
+            "## 💼 Professional Experience",
+            "## Professional Experience"
+          ];
 
       let experiencesSection = "";
       for (const header of possibleHeaders) {
