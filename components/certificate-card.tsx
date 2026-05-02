@@ -42,7 +42,7 @@ export function CertificateCard({
         className={`group relative p-8 rounded-3xl transition-all duration-500 border ${
           theme === "dark"
             ? "border-transparent hover:border-white/[0.05] hover:bg-white/[0.02]"
-            : "border-transparent hover:border-black/[0.05] hover:bg-black/[0.02]"
+            : "border-transparent hover:border-slate-200/60 hover:bg-white hover:shadow-xl"
         }`}
       >
         {/* Subtle Hover Glow */}
@@ -58,14 +58,14 @@ export function CertificateCard({
 
           <h3
             className={`text-lg lg:text-xl font-black transition-colors duration-500 group-hover:text-neon-green ${
-              theme === "dark" ? "text-white" : "text-black"
+              theme === "dark" ? "text-white" : "text-slate-900"
             }`}
           >
             {title}
           </h3>
 
           <div className="flex items-center gap-2">
-            <span className={`text-[11px] font-mono font-bold tracking-widest ${theme === "dark" ? "text-gray-600" : "text-gray-500"}`}>
+            <span className={`text-[11px] font-mono font-bold tracking-widest ${theme === "dark" ? "text-gray-600" : "text-slate-500"}`}>
                {institution}
             </span>
           </div>
@@ -74,7 +74,7 @@ export function CertificateCard({
             <div className="pt-3">
               {description.map((desc, i) => (
                 <p key={i} className={`text-xs leading-relaxed transition-colors duration-300 ${
-                  theme === "dark" ? "text-gray-500 group-hover:text-gray-400" : "text-gray-600 group-hover:text-gray-800"
+                  theme === "dark" ? "text-gray-500 group-hover:text-gray-400" : "text-slate-500 group-hover:text-slate-800"
                 }`}>
                   {desc}
                 </p>

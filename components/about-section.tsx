@@ -52,8 +52,8 @@ export function AboutSection() {
     <section
       id="about"
       onMouseMove={handleMouseMove}
-      className={`py-40 relative transition-colors duration-300 overflow-hidden ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`py-40 relative transition-colors duration-500 overflow-hidden ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       }`}
     >
       <motion.div
@@ -74,7 +74,7 @@ export function AboutSection() {
           <div className="lg:col-span-7 space-y-12">
             <ScrollReveal direction="up" delay={200}>
               <h3
-                className={`text-4xl lg:text-6xl font-black leading-[1.1] tracking-tighter ${theme === "dark" ? "text-white" : "text-black"}`}
+                className={`text-4xl lg:text-6xl font-black leading-[1.1] tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
               >
                 {t("about", "hero_text_1")}{" "}
                 <span className="text-neon-green">{t("about", "hero_text_2")}</span>{" "}
@@ -86,7 +86,7 @@ export function AboutSection() {
             <div className="space-y-8 max-w-2xl">
               <ScrollReveal direction="up" delay={400}>
                 <p
-                  className={`text-xl leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}
+                  className={`text-xl leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-slate-600"}`}
                 >
                   {t("about", "description_1", {
                     years: (new Date().getFullYear() - 2023).toString(),
@@ -95,7 +95,7 @@ export function AboutSection() {
               </ScrollReveal>
               <ScrollReveal direction="up" delay={600}>
                 <p
-                  className={`text-lg leading-relaxed ${theme === "dark" ? "text-gray-500" : "text-gray-500"}`}
+                  className={`text-lg leading-relaxed ${theme === "dark" ? "text-gray-500" : "text-slate-400"}`}
                 >
                   {t("about", "description_2")} {t("about", "description_3")}
                 </p>
@@ -103,13 +103,13 @@ export function AboutSection() {
             </div>
 
             <ScrollReveal direction="up" delay={800}>
-              <div className="grid grid-cols-3 gap-8 pt-12 border-t border-white/[0.05]">
+              <div className={`grid grid-cols-3 gap-8 pt-12 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}>
                 <div className="space-y-2">
                   <span className="text-neon-green font-mono text-[10px] uppercase tracking-[0.4em] font-black">
                     {t("about", "years_exp")}
                   </span>
                   <div
-                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}
                   >
                     {(new Date().getFullYear() - 2023).toString()}+
                   </div>
@@ -119,7 +119,7 @@ export function AboutSection() {
                     {t("about", "projects_stat")}
                   </span>
                   <div
-                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}
                   >
                     30+
                   </div>
@@ -129,7 +129,7 @@ export function AboutSection() {
                     {t("about", "coffee_day")}
                   </span>
                   <div
-                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                    className={`text-4xl lg:text-5xl font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}
                   >
                     ∞
                   </div>
@@ -144,7 +144,7 @@ export function AboutSection() {
                 className={`relative p-8 lg:p-12 rounded-[3.5rem] border transition-all duration-700 ${
                   theme === "dark"
                     ? "bg-[#0c0c0d]/60 border-white/[0.05] hover:border-neon-green/20"
-                    : "bg-gray-50 border-black/[0.05] hover:bg-white hover:shadow-2xl"
+                    : "bg-white border-slate-200/60 hover:border-slate-300 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.1)]"
                 } backdrop-blur-3xl`}
               >
                 <div className="mb-10 flex flex-col gap-2">
@@ -152,7 +152,7 @@ export function AboutSection() {
                     {t("about", "current_focus")}
                   </span>
                   <h4
-                    className={`text-3xl font-black ${theme === "dark" ? "text-white" : "text-black"}`}
+                    className={`text-3xl font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}
                   >
                     {t("about", "core_stack")}
                   </h4>
@@ -169,19 +169,19 @@ export function AboutSection() {
                             {skill.role}
                           </span>
                           <h5
-                            className={`text-xl font-bold transition-all duration-300 group-hover:text-neon-green ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
+                            className={`text-xl font-bold transition-all duration-300 group-hover:text-neon-green ${theme === "dark" ? "text-gray-200" : "text-slate-800"}`}
                           >
                             {skill.name}
                           </h5>
                         </div>
                         <span
-                          className={`text-xs font-mono font-black ${theme === "dark" ? "text-neon-green/40" : "text-black/20"}`}
+                          className={`text-xs font-mono font-black ${theme === "dark" ? "text-neon-green/40" : "text-slate-300"}`}
                         >
                           {skill.description}
                         </span>
                       </div>
                       <div
-                        className={`w-full h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}
+                        className={`w-full h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-slate-200/60"}`}
                       />
                       <div className="absolute bottom-0 left-0 w-full h-px bg-neon-green scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
@@ -198,11 +198,11 @@ export function AboutSection() {
                     className={`flex items-center gap-2 group/btn px-6 py-3 rounded-full border transition-all duration-500 ${
                       theme === "dark"
                         ? "border-white/10 hover:border-neon-green/40 hover:bg-neon-green/5"
-                        : "border-black/10 hover:border-black/20 hover:bg-black/5"
+                        : "border-slate-200 hover:border-slate-900 hover:bg-slate-50"
                     }`}
                   >
                     <span
-                      className={`text-[10px] font-mono font-black uppercase tracking-widest ${theme === "dark" ? "text-gray-400 group-hover:text-neon-green" : "text-gray-500 group-hover:text-black"}`}
+                      className={`text-[10px] font-mono font-black uppercase tracking-widest ${theme === "dark" ? "text-gray-400 group-hover:text-neon-green" : "text-slate-500 group-hover:text-slate-900"}`}
                     >
                       {t("about", "view_tech_stack")}
                     </span>
@@ -216,7 +216,7 @@ export function AboutSection() {
       </div>
 
       <div
-        className={`absolute -bottom-20 -left-20 text-[20rem] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
+        className={`absolute -bottom-20 -left-20 text-[20rem] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-slate-900"}`}
       >
         {t("about", "bg_text")}
       </div>

@@ -18,8 +18,8 @@ export function EducationSection() {
   return (
     <section
       id="education"
-      className={`py-40 transition-colors duration-300 relative ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`py-40 transition-colors duration-500 relative ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       } overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -36,10 +36,10 @@ export function EducationSection() {
           {education && (
              <div className="md:col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-8 mb-10">
-                   <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+                   <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                       {t("education", "formation")}
                    </h3>
-                   <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
+                   <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-slate-200"}`} />
                 </div>
                 <EducationCard
                   course={education.course}
@@ -53,10 +53,10 @@ export function EducationSection() {
           {/* Certificates */}
           <div className="md:col-span-2">
              <div className="flex items-center gap-8 mb-10">
-                <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+                <h3 className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                    {t("education", "certificates")}
                 </h3>
-                <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`} />
+                <div className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-slate-200"}`} />
              </div>
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {certificates &&

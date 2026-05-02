@@ -34,7 +34,7 @@ function TechItem({ tech, theme }: { tech: any; theme: string }) {
       className={`group/tech relative flex items-center gap-4 p-5 rounded-2xl transition-all duration-500 cursor-default border ${
         theme === "dark"
           ? "border-transparent hover:border-white/[0.05] hover:bg-white/[0.02]"
-          : "border-transparent hover:border-black/[0.05] hover:bg-black/[0.02]"
+          : "border-transparent hover:border-slate-200 hover:bg-white hover:shadow-xl"
       }`}
     >
       <motion.div
@@ -51,7 +51,7 @@ function TechItem({ tech, theme }: { tech: any; theme: string }) {
           className={`text-[11px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
             theme === "dark"
               ? "text-gray-500 group-hover/tech:text-white"
-              : "text-gray-400 group-hover/tech:text-black"
+              : "text-slate-400 group-hover/tech:text-slate-900"
           }`}
         >
           {tech.name}
@@ -110,8 +110,8 @@ export function TechnologiesSection() {
   return (
     <section
       id="technologies"
-      className={`py-40 transition-colors duration-300 relative ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`py-40 transition-colors duration-500 relative ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       } overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -129,12 +129,12 @@ export function TechnologiesSection() {
               <div className="relative">
                 <div className="flex items-center gap-8 mb-12">
                   <h3
-                    className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}
+                    className={`text-sm font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}
                   >
                     {category.title}
                   </h3>
                   <div
-                    className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}
+                    className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.05]" : "bg-slate-200"}`}
                   />
                 </div>
 

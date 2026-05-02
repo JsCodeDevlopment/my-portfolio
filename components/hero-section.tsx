@@ -33,15 +33,15 @@ export function HeroSection() {
     <section
       id="home"
       onMouseMove={handleMouseMove}
-      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       }`}
     >
       <div
         className={`absolute inset-0 z-0 ${
           theme === "dark"
             ? "bg-[linear-gradient(rgba(20,184,166,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.05)_1px,transparent_1px)]"
-            : "bg-[linear-gradient(rgba(20,184,166,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.1)_1px,transparent_1px)]"
+            : "bg-[linear-gradient(rgba(15,23,42,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)]"
         } bg-[size:60px_60px]`}
       />
 
@@ -66,7 +66,7 @@ export function HeroSection() {
                   className={`w-32 h-32 lg:w-40 lg:h-40 rounded-[2.5rem] overflow-hidden border-2 transition-all duration-700 ${
                     theme === "dark"
                       ? "border-white/10 group-hover:border-neon-green/50"
-                      : "border-black/10 group-hover:border-black/30"
+                      : "border-slate-200/60 group-hover:border-slate-300"
                   }`}
                 >
                   <Image
@@ -93,7 +93,7 @@ export function HeroSection() {
 
             <ScrollReveal direction="up" delay={600}>
               <h1
-                className={`text-[12vw] lg:text-[10rem] font-black leading-none tracking-tighter ${theme === "dark" ? "text-white" : "text-black"}`}
+                className={`text-[12vw] lg:text-[10rem] font-black leading-none tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
               >
                 JONATAS{" "}
                 <span className="text-neon-green inline-block transition-all duration-700">
@@ -106,7 +106,7 @@ export function HeroSection() {
           <ScrollReveal direction="up" delay={800}>
             <p
               className={`text-lg lg:text-2xl font-mono font-medium max-w-2xl mx-auto tracking-tight transition-colors duration-500 ${
-                theme === "dark" ? "text-gray-500" : "text-gray-400"
+                theme === "dark" ? "text-gray-500" : "text-slate-400"
               }`}
             >
               {t("hero", "description", { years: years.toString() })}
@@ -126,15 +126,15 @@ export function HeroSection() {
                 className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 ${
                   theme === "dark"
                     ? "border-white/10 group-hover:border-neon-green"
-                    : "border-black/10 group-hover:border-black"
+                    : "border-slate-200 group-hover:border-slate-900"
                 }`}
               >
                 <ArrowDown
-                  className={`w-5 h-5 transition-all duration-500 ${theme === "dark" ? "text-gray-600 group-hover:text-neon-green" : "text-gray-400 group-hover:text-black"} group-hover:translate-y-1`}
+                  className={`w-5 h-5 transition-all duration-500 ${theme === "dark" ? "text-gray-600 group-hover:text-neon-green" : "text-slate-400 group-hover:text-slate-900"} group-hover:translate-y-1`}
                 />
               </div>
               <span
-                className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`}
+                className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600 group-hover:text-white" : "text-slate-400 group-hover:text-slate-900"}`}
               >
                 {t("hero", "explore")}
               </span>
@@ -144,12 +144,12 @@ export function HeroSection() {
       </div>
 
       <div
-        className={`absolute top-1/4 -left-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
+        className={`absolute top-1/4 -left-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-slate-900"}`}
       >
         {t("hero", "software")}
       </div>
       <div
-        className={`absolute bottom-1/4 -right-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-black"}`}
+        className={`absolute bottom-1/4 -right-20 text-[15vw] font-black pointer-events-none select-none opacity-[0.02] ${theme === "dark" ? "text-white" : "text-slate-900"}`}
       >
         {t("hero", "engineer")}
       </div>

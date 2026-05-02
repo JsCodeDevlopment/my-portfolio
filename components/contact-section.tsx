@@ -53,8 +53,8 @@ export function ContactSection() {
     <section
       id="contact"
       onMouseMove={handleMouseMove}
-      className={`pt-40 pb-20 transition-colors duration-300 relative overflow-hidden ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`pt-40 pb-20 transition-colors duration-500 relative overflow-hidden ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       }`}
     >
       {/* Dynamic Background Glow */}
@@ -82,10 +82,10 @@ export function ContactSection() {
                  <span className="text-neon-green font-mono text-xs uppercase tracking-[0.6em] font-black">
                     {t("contact", "lets_talk")}
                  </span>
-                 <h3 className={`text-4xl lg:text-6xl font-black leading-tight ${theme === "dark" ? "text-white" : "text-black"}`}>
+                 <h3 className={`text-4xl lg:text-6xl font-black leading-tight ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
                     {t("contact", "get_in_touch")}
                  </h3>
-                 <p className={`text-lg leading-relaxed max-w-md ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                 <p className={`text-lg leading-relaxed max-w-md ${theme === "dark" ? "text-gray-400" : "text-slate-600"}`}>
                     {t("contact", "description")}
                  </p>
               </div>
@@ -99,11 +99,11 @@ export function ContactSection() {
                     href={`mailto:${contactInfo.email.value}`}
                     className="group flex flex-col gap-1 w-fit"
                   >
-                    <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+                    <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                        {t("contact", "email_label")}
                     </span>
                     <div className="flex items-center gap-3">
-                       <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                       <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-slate-800"}`}>
                           {contactInfo.email.value}
                        </span>
                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500 text-neon-green" />
@@ -114,11 +114,11 @@ export function ContactSection() {
                     href={`tel:${contactInfo.phone.value.replace(/\D/g, "")}`}
                     className="group flex flex-col gap-1 w-fit"
                   >
-                    <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+                    <span className={`text-[10px] font-mono uppercase tracking-[0.3em] font-black ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                        {t("contact", "phone_label")}
                     </span>
                     <div className="flex items-center gap-3">
-                       <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                       <span className={`text-xl lg:text-2xl font-bold transition-all duration-500 group-hover:text-neon-green ${theme === "dark" ? "text-gray-300" : "text-slate-800"}`}>
                           {contactInfo.phone.value}
                        </span>
                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500 text-neon-green" />
@@ -127,7 +127,7 @@ export function ContactSection() {
                 </div>
 
                 {/* Social Grid */}
-                <div className="flex items-center gap-6 pt-8 border-t border-white/[0.05]">
+                <div className={`flex items-center gap-6 pt-8 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}>
                   {contactInfo.social.map((social, index) => (
                     <a
                       key={index}
@@ -137,13 +137,13 @@ export function ContactSection() {
                       className={`group relative p-4 rounded-2xl transition-all duration-500 border ${
                         theme === "dark"
                           ? "bg-white/[0.02] border-white/[0.05] hover:border-white/[0.1] hover:bg-white/[0.05]"
-                          : "bg-black/[0.02] border-black/[0.05] hover:border-black/[0.1] hover:bg-white"
+                          : "bg-white border-slate-200/60 hover:border-slate-300 hover:shadow-xl"
                       }`}
                     >
                       {social.label.toLowerCase().includes("github") ? (
-                        <Github className={`w-6 h-6 transition-colors duration-500 ${theme === "dark" ? "text-gray-500 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`} />
+                        <Github className={`w-6 h-6 transition-colors duration-500 ${theme === "dark" ? "text-gray-500 group-hover:text-white" : "text-slate-400 group-hover:text-slate-900"}`} />
                       ) : (
-                        <Linkedin className={`w-6 h-6 transition-colors duration-500 ${theme === "dark" ? "text-gray-500 group-hover:text-white" : "text-gray-400 group-hover:text-black"}`} />
+                        <Linkedin className={`w-6 h-6 transition-colors duration-500 ${theme === "dark" ? "text-gray-500 group-hover:text-white" : "text-slate-400 group-hover:text-slate-900"}`} />
                       )}
                     </a>
                   ))}
@@ -183,12 +183,12 @@ export function ContactSection() {
         />
       </div>
 
-      <div className="mt-20 py-10 border-t border-white/[0.05]">
+      <div className={`mt-20 py-10 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}>
          <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+            <p className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-slate-400"}`}>
                © {new Date().getFullYear()} Jonatas Silva. {t("contact", "rights")}
             </p>
-            <div className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+            <div className={`text-[10px] font-mono uppercase tracking-[0.2em] ${theme === "dark" ? "text-gray-500" : "text-slate-400"}`}>
                {t("contact", "brazil")} • GMT -3
             </div>
          </div>

@@ -71,7 +71,7 @@ export function ExperienceCard({
       <span
         className={`absolute hidden lg:block text-[15rem] font-bold select-none opacity-[0.03] transition-all duration-700 top-[-6rem] ${
           isEven ? "right-[5%]" : "left-[5%]"
-        } ${theme === "dark" ? "text-white" : "text-black"} group-hover:opacity-[0.07] group-hover:scale-105`}
+        } ${theme === "dark" ? "text-white" : "text-slate-900"} group-hover:opacity-[0.07] group-hover:scale-105`}
       >
         {formattedNumber}
       </span>
@@ -83,7 +83,7 @@ export function ExperienceCard({
           className={`relative h-full rounded-[2rem] p-8 lg:p-12 transition-all duration-700 overflow-hidden ${
             theme === "dark"
               ? "bg-[#0a0a0b]/90 border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-              : "bg-white/90 border border-black/[0.05] shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+              : "bg-white border-slate-200/60 shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
           } backdrop-blur-2xl group-hover:shadow-neon-green/10 group-hover:translate-y-[-8px]`}
         >
           {/* Dynamic Background Glow following mouse */}
@@ -101,7 +101,7 @@ export function ExperienceCard({
               <div className="flex-1">
                 <motion.h3
                   className={`text-3xl lg:text-4xl font-extrabold mb-3 leading-tight tracking-tight ${
-                    theme === "dark" ? "text-white" : "text-black"
+                    theme === "dark" ? "text-white" : "text-slate-900"
                   } group-hover:text-neon-green transition-colors duration-500`}
                 >
                   {role}
@@ -112,7 +112,7 @@ export function ExperienceCard({
                   </div>
                   <span
                     className={`text-xl lg:text-2xl font-bold tracking-tight ${
-                      theme === "dark" ? "text-gray-200" : "text-gray-800"
+                      theme === "dark" ? "text-gray-200" : "text-slate-800"
                     }`}
                   >
                     {company.replace(/\*\*/g, "")}
@@ -125,7 +125,7 @@ export function ExperienceCard({
                   className={`inline-flex items-center gap-2 px-5 py-2 rounded-xl text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest transition-all duration-500 ${
                     theme === "dark"
                       ? "bg-white/5 text-gray-400 group-hover:bg-neon-green group-hover:text-black shadow-lg"
-                      : "bg-black/5 text-gray-600 group-hover:bg-black group-hover:text-white shadow-md"
+                      : "bg-slate-50 text-slate-500 group-hover:bg-slate-900 group-hover:text-white shadow-sm border border-slate-200/60"
                   }`}
                 >
                   {startDate} — {endDate}
@@ -145,7 +145,7 @@ export function ExperienceCard({
                     </div>
                     {totalCompanyDuration && (
                       <div
-                        className={`text-[10px] font-mono font-bold uppercase tracking-widest ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}
+                        className={`text-[10px] font-mono font-bold uppercase tracking-widest ${theme === "dark" ? "text-gray-500" : "text-slate-400"}`}
                       >
                         {isPT ? "Total:" : "Total:"} {totalCompanyDuration}
                       </div>
@@ -158,7 +158,7 @@ export function ExperienceCard({
 
           {/* Separator */}
           <div
-            className={`w-full h-px mb-8 ${theme === "dark" ? "bg-white/5" : "bg-black/5"}`}
+            className={`w-full h-px mb-8 ${theme === "dark" ? "bg-white/5" : "bg-slate-200/60"}`}
           />
 
           {/* Content Body */}
@@ -182,7 +182,7 @@ export function ExperienceCard({
                   className={`text-normal leading-6 tracking-[0.15em] transition-colors duration-300 ${
                     theme === "dark"
                       ? "text-gray-300 group-hover:text-gray-100"
-                      : "text-gray-600 group-hover:text-gray-900"
+                      : "text-slate-600 group-hover:text-slate-900"
                   }`}
                 >
                   {activity}
@@ -197,13 +197,13 @@ export function ExperienceCard({
               <div className="flex items-center gap-4 mb-5">
                 <span
                   className={`text-[10px] font-mono tracking-[0.3em] uppercase ${
-                    theme === "dark" ? "text-gray-600" : "text-gray-400"
+                    theme === "dark" ? "text-gray-600" : "text-slate-400"
                   }`}
                 >
                   {t("experience", "technologies_used")}
                 </span>
                 <div
-                  className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.03]" : "bg-black/[0.03]"}`}
+                  className={`flex-1 h-px ${theme === "dark" ? "bg-white/[0.03]" : "bg-slate-200/60"}`}
                 />
               </div>
               <div className="flex flex-wrap gap-2.5">
@@ -213,7 +213,7 @@ export function ExperienceCard({
                     className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
                       theme === "dark"
                         ? "bg-white/[0.03] text-gray-400 border border-white/[0.05] hover:bg-neon-green/10 hover:border-neon-green/30 hover:text-neon-green"
-                        : "bg-black/[0.03] text-gray-600 border border-black/[0.05] hover:bg-neon-green/10 hover:border-neon-green/30 hover:text-neon-green"
+                        : "bg-slate-50 text-slate-500 border border-slate-200/60 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-900 shadow-sm"
                     } hover:scale-105 hover:-translate-y-1 shadow-sm`}
                   >
                     {tech.replace(/\*\*/g, "")}
@@ -236,7 +236,7 @@ export function ExperienceCard({
           className={`relative w-4 h-4 rounded-full border-2 transition-all duration-500 ${
             theme === "dark"
               ? "bg-black border-white/20 group-hover:border-neon-green group-hover:bg-neon-green group-hover:shadow-[0_0_15px_rgba(20,184,166,0.8)]"
-              : "bg-white border-black/20 group-hover:border-neon-green group-hover:bg-neon-green group-hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
+              : "bg-white border-slate-200 group-hover:border-neon-green group-hover:bg-neon-green group-hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
           } group-hover:scale-125`}
         />
       </div>

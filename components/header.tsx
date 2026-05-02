@@ -65,7 +65,7 @@ export function Header() {
               className={`relative w-10 h-10 rounded-xl overflow-hidden border transition-all duration-500 ${
                 theme === "dark"
                   ? "border-white/10 group-hover:border-neon-green/50"
-                  : "border-black/10 group-hover:border-black/30"
+                  : "border-slate-200/60 group-hover:border-slate-300"
               }`}
             >
               <Image
@@ -80,7 +80,7 @@ export function Header() {
               <motion.span
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className={`block text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-white" : "text-black"}`}
+                className={`block text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-white" : "text-slate-900"}`}
               >
                 Jonatas Silva
               </motion.span>
@@ -96,7 +96,7 @@ export function Header() {
                 className={`group relative text-[10px] font-mono font-black uppercase tracking-[0.3em] transition-all duration-300 ${
                   theme === "dark"
                     ? "text-gray-500 hover:text-white"
-                    : "text-gray-400 hover:text-black"
+                    : "text-slate-400 hover:text-slate-900"
                 }`}
               >
                 <span className="relative z-10">{t("header", item.label)}</span>
@@ -114,7 +114,7 @@ export function Header() {
                 className={`p-2 rounded-xl border transition-all duration-500 ${
                   theme === "dark"
                     ? "border-white/10 hover:border-white/20 text-gray-500 hover:text-white bg-white/5"
-                    : "border-black/10 hover:border-black/20 text-gray-400 hover:text-black bg-black/5"
+                    : "border-slate-200 hover:border-slate-300 text-slate-400 hover:text-slate-900 bg-slate-50"
                 }`}
               >
                 {theme === "dark" ? (
@@ -139,7 +139,7 @@ export function Header() {
             className={`lg:hidden p-3 rounded-xl border transition-all duration-500 ${
               theme === "dark"
                 ? "border-white/10 text-white hover:bg-white/5"
-                : "border-black/10 text-black hover:bg-black/5"
+                : "border-slate-200 text-slate-900 hover:bg-slate-50"
             }`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -161,7 +161,7 @@ export function Header() {
             className={`lg:hidden absolute top-full left-0 right-0 border-t transition-colors duration-500 ${
               theme === "dark"
                 ? "bg-black border-white/[0.05]"
-                : "bg-white border-black/[0.05]"
+                : "bg-white border-slate-200/60"
             } shadow-2xl`}
           >
             <div className="px-6 py-10 space-y-8">
@@ -173,7 +173,7 @@ export function Header() {
                   className={`block text-2xl font-black uppercase tracking-tighter ${
                     theme === "dark"
                       ? "text-gray-500 hover:text-neon-green"
-                      : "text-gray-400 hover:text-neon-green"
+                      : "text-slate-400 hover:text-neon-green"
                   }`}
                 >
                   {t("header", item.label)}
@@ -188,7 +188,7 @@ export function Header() {
                     className={`flex items-center gap-3 p-3 rounded-xl border ${
                       theme === "dark"
                         ? "border-white/10 text-white"
-                        : "border-black/10 text-black"
+                        : "border-slate-200 text-slate-900"
                     }`}
                   >
                     {theme === "dark" ? (

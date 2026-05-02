@@ -32,8 +32,8 @@ export function SectionTitle({
           <span className="text-neon-green font-mono text-[10px] font-black uppercase tracking-[0.4em]">
             {subtitle}
           </span>
-          <div className={`w-8 h-px ${theme === "dark" ? "bg-white/10" : "bg-black/10"}`} />
-          <span className={`font-mono text-[10px] font-black tracking-widest ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+          <div className={`w-8 h-px ${theme === "dark" ? "bg-white/10" : "bg-slate-200"}`} />
+          <span className={`font-mono text-[10px] font-black tracking-widest ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
             NO. {index}
           </span>
         </motion.div>
@@ -47,7 +47,7 @@ export function SectionTitle({
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className={`text-6xl sm:text-8xl lg:text-9xl font-black tracking-tighter transition-all duration-700 ${
-            theme === "dark" ? "text-white" : "text-black"
+            theme === "dark" ? "text-white" : "text-slate-900"
           }`}
         >
           {title}<span className="text-neon-green">.</span>
@@ -66,7 +66,7 @@ export function SectionTitle({
       {/* Background Decorative Element */}
       <div 
         className={`absolute -top-12 -left-8 text-[12rem] font-black pointer-events-none select-none opacity-[0.02] transition-transform duration-1000 group-hover:translate-x-4 ${
-          theme === "dark" ? "text-white" : "text-black"
+          theme === "dark" ? "text-white" : "text-slate-900"
         }`}
       >
         {title.toUpperCase()}

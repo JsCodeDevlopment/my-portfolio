@@ -40,20 +40,24 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className={`py-40 transition-colors duration-300 relative overflow-hidden ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`py-40 transition-colors duration-500 relative overflow-hidden ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       }`}
     >
       {/* Subtle atmospheric glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-[0.03]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#14b8a6_0%,_transparent_70%)] blur-[100px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+        <div className={`absolute inset-0 blur-[120px] opacity-[0.03] ${
+          theme === "dark" 
+            ? "bg-[radial-gradient(circle_at_center,_#14b8a6_0%,_transparent_70%)]" 
+            : "bg-[radial-gradient(circle_at_center,_#0f172a_0%,_transparent_70%)]"
+        }`} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="up" className="mb-24 text-center lg:text-left">
-          <SectionTitle 
-            title={t("projects", "title")} 
-            index="03" 
+          <SectionTitle
+            title={t("projects", "title")}
+            index="03"
             subtitle={t("projects", "section_subtitle")}
           />
         </ScrollReveal>
@@ -103,7 +107,7 @@ function ParallaxProjectCard({
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      }
+      },
     );
 
     const handleScroll = () => {
@@ -127,7 +131,7 @@ function ParallaxProjectCard({
         const opacityRange = opacityStart - opacityEnd;
         const opacityProgress = Math.max(
           0,
-          Math.min(1, (viewportHeight - cardTop - opacityEnd) / opacityRange)
+          Math.min(1, (viewportHeight - cardTop - opacityEnd) / opacityRange),
         );
         // Use aggressive easing for rapid opacity increase
         const opacityEase = 1 - Math.pow(1 - opacityProgress, 1.5);
@@ -143,8 +147,8 @@ function ParallaxProjectCard({
           0,
           Math.min(
             1,
-            (viewportHeight - cardTop - horizontalEnd) / horizontalRange
-          )
+            (viewportHeight - cardTop - horizontalEnd) / horizontalRange,
+          ),
         );
 
         // Very aggressive easing for quick completion

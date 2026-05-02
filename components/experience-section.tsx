@@ -62,8 +62,8 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      className={`py-40 transition-colors duration-300 relative ${
-        theme === "dark" ? "bg-black" : "bg-white"
+      className={`py-40 transition-colors duration-500 relative ${
+        theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
       } overflow-hidden`}
     >
       {/* Background Decorative Elements */}
@@ -87,7 +87,7 @@ export function ExperienceSection() {
           {/* Central Vertical Line (Desktop only) */}
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2">
             <div
-              className={`w-full h-full ${theme === "dark" ? "bg-white/10" : "bg-black/10"}`}
+              className={`w-full h-full ${theme === "dark" ? "bg-white/10" : "bg-slate-200"}`}
             />
             <motion.div
               style={{ scaleY }}
@@ -113,7 +113,7 @@ export function ExperienceSection() {
         {/* Stats Section - Reimagined for Ultra-Premium feel */}
         <div
           ref={statsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 pt-20 border-t border-white/[0.05]"
+          className={`grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 pt-20 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}
         >
           {stats.map((stat, index) => (
             <ScrollReveal
@@ -126,8 +126,8 @@ export function ExperienceSection() {
                 className={`group relative flex flex-col items-center justify-center p-16 transition-all duration-700 rounded-[3rem] ${
                   theme === "dark"
                     ? "bg-[#0c0c0d]/40 hover:bg-[#121214]/60"
-                    : "bg-gray-50 hover:bg-white"
-                } border border-white/[0.04] backdrop-blur-3xl overflow-hidden text-center shadow-2xl hover:shadow-neon-green/5 hover:-translate-y-4`}
+                    : "bg-white hover:bg-white"
+                } border ${theme === "dark" ? "border-white/[0.04]" : "border-slate-200/60"} backdrop-blur-3xl overflow-hidden text-center shadow-2xl hover:shadow-neon-green/5 hover:-translate-y-4`}
               >
                 {/* Floating Glow Sphere */}
                 <div
@@ -136,7 +136,7 @@ export function ExperienceSection() {
 
                 <div className="relative z-10">
                   <div className="relative inline-block mb-6">
-                    <div className="text-7xl sm:text-8xl lg:text-9xl font-black mb-0 transition-all duration-700 group-hover:scale-110 group-hover:text-neon-green tracking-tighter">
+                    <div className={`text-7xl sm:text-8xl lg:text-9xl font-black mb-0 transition-all duration-700 group-hover:scale-110 group-hover:text-neon-green tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
                       {countAnimations[index].count}
                     </div>
                     <span className="absolute -top-4 -right-8 text-4xl lg:text-5xl font-black text-neon-green">
@@ -147,7 +147,7 @@ export function ExperienceSection() {
                     className={`text-xs lg:text-sm font-bold uppercase tracking-[0.4em] transition-colors duration-500 ${
                       theme === "dark"
                         ? "text-gray-500 group-hover:text-neon-green"
-                        : "text-gray-400 group-hover:text-neon-green"
+                        : "text-slate-400 group-hover:text-neon-green"
                     }`}
                   >
                     {stat.label}

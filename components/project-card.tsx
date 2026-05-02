@@ -71,14 +71,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <motion.div
           onMouseMove={handleMouseMove}
           data-cursor="project"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: index * 0.1 }}
-          className={`group relative rounded-[2.5rem] overflow-hidden transition-all duration-700 cursor-pointer border ${
+          className={`group relative rounded-[2.5rem] overflow-hidden transition-[background-color,border-color,box-shadow] duration-700 cursor-pointer border ${
             theme === "dark"
               ? "bg-[#0c0c0d]/80 border-white/[0.05] hover:border-neon-green/30"
-              : "bg-white border-black/[0.05] hover:border-black/[0.1] shadow-xl hover:shadow-2xl"
+              : "bg-white border-slate-200/60 hover:border-slate-300 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.1)]"
           }`}
         >
           <motion.div
@@ -98,7 +94,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               className={`absolute top-4 right-4 z-20 px-4 py-1.5 rounded-full backdrop-blur-md text-[10px] font-mono font-black uppercase tracking-widest transition-all duration-500 ${
                 theme === "dark"
                   ? "bg-black/60 text-gray-400 border border-white/10 group-hover:text-neon-green group-hover:border-neon-green/40"
-                  : "bg-white/60 text-gray-500 border border-black/10 group-hover:text-black group-hover:border-black/20"
+                  : "bg-white/60 text-slate-500 border border-slate-200/60 group-hover:text-slate-900 group-hover:border-slate-300"
               }`}
             >
               {formattedDate}
@@ -109,7 +105,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <div className="flex items-start justify-between gap-4 mb-4">
               <h3
                 className={`text-2xl lg:text-3xl font-black group-hover:text-neon-green transition-all duration-500 uppercase tracking-tighter ${
-                  theme === "dark" ? "text-white" : "text-black"
+                  theme === "dark" ? "text-white" : "text-slate-900"
                 }`}
               >
                 {project.name.replace(/-/g, " ")}
@@ -121,7 +117,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 className={`text-sm leading-relaxed mb-8 transition-colors duration-500 line-clamp-2 ${
                   theme === "dark"
                     ? "text-gray-400 group-hover:text-gray-200"
-                    : "text-gray-600 group-hover:text-gray-900"
+                    : "text-slate-600 group-hover:text-slate-900"
                 }`}
               >
                 {project.description}
@@ -129,7 +125,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             )}
 
             <div
-              className={`w-full h-px mb-6 ${theme === "dark" ? "bg-white/[0.05]" : "bg-black/[0.05]"}`}
+              className={`w-full h-px mb-6 ${theme === "dark" ? "bg-white/[0.05]" : "bg-slate-200/60"}`}
             />
 
             <div className="flex items-center justify-between">
@@ -142,7 +138,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                           className={`relative flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-500 ${
                             theme === "dark"
                               ? "bg-white/[0.03] border border-white/[0.05] group-hover:border-neon-green/30 group-hover:bg-neon-green/10"
-                              : "bg-black/[0.03] border border-black/[0.05] group-hover:border-black/10"
+                              : "bg-slate-50 border border-slate-200/60 group-hover:border-slate-300 group-hover:bg-slate-100"
                           }`}
                         >
                           <tech.image
@@ -158,7 +154,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                         className={`${
                           theme === "dark"
                             ? "bg-[#0c0c0d] border-white/10 text-white"
-                            : "bg-white border-black/10 text-black"
+                            : "bg-white border-slate-200 text-slate-900 shadow-lg"
                         } font-mono text-[10px] uppercase tracking-widest`}
                       >
                         <p>{tech.name}</p>
@@ -170,7 +166,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                       className={`flex items-center justify-center w-9 h-9 rounded-xl text-[10px] font-mono font-black border transition-all duration-500 ${
                         theme === "dark"
                           ? "bg-white/[0.03] text-gray-500 border-white/[0.05]"
-                          : "bg-black/[0.03] text-gray-400 border-black/[0.05]"
+                          : "bg-slate-50 text-slate-400 border-slate-200/60"
                       }`}
                     >
                       +{remainingTechs}
@@ -181,7 +177,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
               <div
                 className={`text-[10px] font-mono font-black uppercase tracking-[0.2em] transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 ${
-                  theme === "dark" ? "text-neon-green" : "text-black"
+                  theme === "dark" ? "text-neon-green" : "text-slate-900"
                 }`}
               >
                 {t("projects", "details")} →

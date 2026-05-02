@@ -84,14 +84,14 @@ export function ContactForm() {
       className={`relative w-full p-8 lg:p-12 rounded-[3.5rem] transition-all duration-700 overflow-hidden border ${
         theme === "dark"
           ? "bg-[#0c0c0d]/80 border-white/[0.05] hover:border-neon-green/30"
-          : "bg-white border-black/[0.05] hover:border-black/10 shadow-2xl"
+          : "bg-white border-slate-200/60 hover:border-slate-300 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.1)]"
       } backdrop-blur-3xl`}
     >
       <div className="relative z-10 space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Name Field */}
           <div className="space-y-4">
-             <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+             <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                 {t("contact", "name_label")}
              </label>
              <div className="relative">
@@ -100,7 +100,7 @@ export function ContactForm() {
                   {...register("user_name")}
                   placeholder={t("contact", "name_placeholder")}
                   className={`w-full bg-transparent border-b-2 py-4 px-1 text-lg lg:text-xl font-bold transition-all duration-500 placeholder:text-gray-600 focus:outline-none ${
-                    theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-black/10 text-black focus:border-neon-green"
+                    theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-slate-200 text-slate-900 focus:border-neon-green"
                   } ${errors.user_name ? "border-red-500 focus:border-red-500" : ""}`}
                   type="text"
                   disabled={isSending}
@@ -111,7 +111,7 @@ export function ContactForm() {
 
           {/* Email Field */}
           <div className="space-y-4">
-             <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+             <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
                 {t("contact", "email_label")}
              </label>
              <div className="relative">
@@ -120,7 +120,7 @@ export function ContactForm() {
                   {...register("user_email")}
                   placeholder={t("contact", "email_placeholder")}
                   className={`w-full bg-transparent border-b-2 py-4 px-1 text-lg lg:text-xl font-bold transition-all duration-500 placeholder:text-gray-600 focus:outline-none ${
-                    theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-black/10 text-black focus:border-neon-green"
+                    theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-slate-200 text-slate-900 focus:border-neon-green"
                   } ${errors.user_email ? "border-red-500 focus:border-red-500" : ""}`}
                   type="email"
                   disabled={isSending}
@@ -132,7 +132,7 @@ export function ContactForm() {
 
         {/* Message Field */}
         <div className="space-y-4 pt-4">
-           <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
+           <label className={`text-[10px] font-mono font-black uppercase tracking-[0.4em] ${theme === "dark" ? "text-gray-600" : "text-slate-400"}`}>
               {t("contact", "message_label")}
            </label>
            <div className="relative">
@@ -142,7 +142,7 @@ export function ContactForm() {
                 placeholder={t("contact", "message_placeholder")}
                 rows={4}
                 className={`w-full bg-transparent border-b-2 py-4 px-1 text-lg lg:text-xl font-bold transition-all duration-500 placeholder:text-gray-600 focus:outline-none resize-none ${
-                  theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-black/10 text-black focus:border-neon-green"
+                  theme === "dark" ? "border-white/10 text-white focus:border-neon-green" : "border-slate-200 text-slate-900 focus:border-neon-green"
                 } ${errors.message ? "border-red-500 focus:border-red-500" : ""}`}
                 disabled={isSending}
               />
