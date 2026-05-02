@@ -58,29 +58,21 @@ export function ExperienceCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
       onMouseMove={onMouseMove}
-      className={`group relative w-full mb-16 lg:mb-24 flex ${
-        isEven ? "lg:justify-start" : "lg:justify-end"
-      }`}
+      className="group relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[38vw] flex items-center justify-center h-full mx-4"
     >
-      {/* Decorative Index Background (Giant Number) */}
+      {/* Decorative Index Background (Giant Number) - Moved further out for maximum visibility */}
       <span
-        className={`absolute hidden lg:block text-[15rem] font-bold select-none opacity-[0.03] transition-all duration-700 top-[-6rem] ${
-          isEven ? "right-[5%]" : "left-[5%]"
-        } ${theme === "dark" ? "text-white" : "text-slate-900"} group-hover:opacity-[0.07] group-hover:scale-105`}
+        className={`absolute hidden lg:block text-[16rem] font-black select-none opacity-[0.12] transition-all duration-700 -top-32 -left-20 ${theme === "dark" ? "text-white" : "text-slate-900"} group-hover:opacity-[0.25] group-hover:text-neon-green group-hover:-translate-y-8`}
       >
         {formattedNumber}
       </span>
 
       {/* Main Card */}
-      <div className="w-full lg:w-[48%] relative perspective-1000">
+      <div className="w-full h-[520px] relative perspective-1000">
         {/* The Actual Card */}
         <div
-          className={`relative h-full rounded-[2rem] p-8 lg:p-12 transition-all duration-700 overflow-hidden ${
+          className={`relative h-full flex flex-col rounded-[2rem] p-8 lg:p-12 transition-all duration-700 overflow-hidden ${
             theme === "dark"
               ? "bg-[#0a0a0b]/90 border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
               : "bg-white border-slate-200/60 shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
@@ -162,26 +154,26 @@ export function ExperienceCard({
           />
 
           {/* Content Body */}
-          <div className="space-y-6 mb-10 overflow-hidden">
+          <div className="flex-1 space-y-4 mb-6 overflow-y-auto custom-scrollbar pr-2">
             {activities.map((activity, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 + i * 0.1 }}
-                className="flex gap-5 items-start group/item"
+                className="flex gap-4 items-start group/item"
               >
                 <div
-                  className={`mt-2.5 flex-shrink-0 w-2 h-2 rounded-full transition-all duration-500 ${
+                  className={`mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full transition-all duration-500 ${
                     theme === "dark"
                       ? "bg-neon-green group-hover/item:bg-neon-green shadow-[0_0_8px_rgba(20,184,166,0.6)]"
                       : "bg-neon-green/60 group-hover/item:bg-neon-green"
                   } group-hover/item:scale-125`}
                 />
                 <p
-                  className={`text-normal leading-6 tracking-[0.15em] transition-colors duration-300 ${
+                  className={`text-[11px] leading-relaxed font-medium transition-colors duration-300 ${
                     theme === "dark"
-                      ? "text-gray-300 group-hover:text-gray-100"
+                      ? "text-gray-400 group-hover:text-gray-200"
                       : "text-slate-600 group-hover:text-slate-900"
                   }`}
                 >
@@ -223,22 +215,6 @@ export function ExperienceCard({
             </div>
           )}
         </div>
-      </div>
-
-      {/* Center Marker Line Intersection (Desktop Only) */}
-      <div
-        className={`hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-12 h-12 z-30`}
-      >
-        <div
-          className={`absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-500 bg-neon-green`}
-        />
-        <div
-          className={`relative w-4 h-4 rounded-full border-2 transition-all duration-500 ${
-            theme === "dark"
-              ? "bg-black border-white/20 group-hover:border-neon-green group-hover:bg-neon-green group-hover:shadow-[0_0_15px_rgba(20,184,166,0.8)]"
-              : "bg-white border-slate-200 group-hover:border-neon-green group-hover:bg-neon-green group-hover:shadow-[0_0_15px_rgba(20,184,166,0.6)]"
-          } group-hover:scale-125`}
-        />
       </div>
     </motion.div>
   );

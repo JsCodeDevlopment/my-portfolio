@@ -4,7 +4,7 @@ import { ExperienceCard } from "@/components/experience-card";
 import { useCountAnimation } from "@/hooks/use-count-animation";
 import { useExperienceRequest } from "@/hooks/use-experience";
 import { useTranslation } from "@/hooks/use-translation";
-import { motion, useInView, useScroll, useSpring } from "motion/react";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef } from "react";
 import { useTheme } from "../contexts/theme-context";
 import { ScrollReveal } from "./scroll-reveal";
@@ -20,14 +20,13 @@ export function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end end"],
   });
 
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", `-${(experiences.length - 1) * (100 / experiences.length - 2.5)}%`],
+  );
 
   const stats = [
     { number: 30, label: t("experience", "projects") },
@@ -61,42 +60,31 @@ export function ExperienceSection() {
 
   return (
     <section
+      ref={containerRef}
       id="experience"
-      className={`py-40 transition-colors duration-500 relative ${
+      className={`relative h-[300vh] transition-colors duration-500 ${
         theme === "dark" ? "bg-black" : "bg-[#f8f9fa]"
-      } overflow-hidden`}
+      }`}
     >
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-neon-green/20 blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-neon-green/10 blur-[150px] rounded-full" />
-      </div>
+      <div className="sticky top-0 h-screen flex flex-col justify-center">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+          <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-neon-green/20 blur-[150px] rounded-full" />
+          <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-neon-green/10 blur-[150px] rounded-full" />
+        </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <ScrollReveal direction="up" className="mb-32">
-          <div className="flex flex-col gap-6">
-            <SectionTitle 
-              title={t("experience", "title")} 
-              index="04" 
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full mb-12 relative z-20">
+          <ScrollReveal direction="up">
+            <SectionTitle
+              title={t("experience", "title")}
+              index="04"
               subtitle={t("experience", "section_subtitle")}
             />
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
-        <div ref={containerRef} className="relative mb-48 pt-12">
-          {/* Central Vertical Line (Desktop only) */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2">
-            <div
-              className={`w-full h-full ${theme === "dark" ? "bg-white/10" : "bg-slate-200"}`}
-            />
-            <motion.div
-              style={{ scaleY }}
-              className="absolute top-0 w-full h-full bg-neon-green origin-top drop-shadow-[0_0_15px_#14b8a6]"
-            />
-          </div>
-
-          {/* Cards Content */}
-          <div className="space-y-32 lg:space-y-48">
+        <div className="relative flex items-center h-[65vh]">
+          <motion.div style={{ x }} className="flex gap-12 px-6 lg:px-[10%]">
             {experiences.map((exp, index) => (
               <ExperienceCard
                 key={index}
@@ -107,60 +95,53 @@ export function ExperienceSection() {
                 totalCompanyDuration={exp.totalCompanyDuration}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Stats Section - Reimagined for Ultra-Premium feel */}
-        <div
-          ref={statsRef}
-          className={`grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 pt-20 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}
-        >
-          {stats.map((stat, index) => (
-            <ScrollReveal
-              key={index}
-              direction="up"
-              delay={index * 150}
-              duration={800}
-            >
-              <div
-                className={`group relative flex flex-col items-center justify-center p-16 transition-all duration-700 rounded-[3rem] ${
-                  theme === "dark"
-                    ? "bg-[#0c0c0d]/40 hover:bg-[#121214]/60"
-                    : "bg-white hover:bg-white"
-                } border ${theme === "dark" ? "border-white/[0.04]" : "border-slate-200/60"} backdrop-blur-3xl overflow-hidden text-center shadow-2xl hover:shadow-neon-green/5 hover:-translate-y-4`}
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full mt-20 relative z-20">
+          <div
+            ref={statsRef}
+            className={`grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-12 border-t ${theme === "dark" ? "border-white/[0.05]" : "border-slate-200"}`}
+          >
+            {stats.map((stat, index) => (
+              <ScrollReveal
+                key={index}
+                direction="up"
+                delay={index * 150}
+                duration={800}
               >
-                {/* Floating Glow Sphere */}
                 <div
-                  className={`absolute -top-10 -right-10 w-40 h-40 blur-3xl rounded-full transition-all duration-700 opacity-0 group-hover:opacity-40 group-hover:scale-150 bg-neon-green/30`}
-                />
-
-                <div className="relative z-10">
-                  <div className="relative inline-block mb-6">
-                    <div className={`text-7xl sm:text-8xl lg:text-9xl font-black mb-0 transition-all duration-700 group-hover:scale-110 group-hover:text-neon-green tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
-                      {countAnimations[index].count}
+                  className={`group relative flex flex-col items-center justify-center p-8 transition-all duration-700 rounded-[2.5rem] ${
+                    theme === "dark"
+                      ? "bg-[#0c0c0d]/40 hover:bg-[#121214]/60"
+                      : "bg-white hover:bg-white"
+                  } border ${theme === "dark" ? "border-white/[0.04]" : "border-slate-200/60"} backdrop-blur-3xl overflow-hidden text-center shadow-2xl hover:shadow-neon-green/5 hover:-translate-y-2`}
+                >
+                  <div className="relative z-10">
+                    <div className="relative inline-block mb-2">
+                      <div
+                        className={`text-5xl lg:text-6xl font-black mb-0 transition-all duration-700 group-hover:scale-110 group-hover:text-neon-green tracking-tighter ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                      >
+                        {countAnimations[index].count}
+                      </div>
+                      <span className="absolute -top-2 -right-6 text-2xl font-black text-neon-green">
+                        +
+                      </span>
                     </div>
-                    <span className="absolute -top-4 -right-8 text-4xl lg:text-5xl font-black text-neon-green">
-                      +
-                    </span>
-                  </div>
-                  <div
-                    className={`text-xs lg:text-sm font-bold uppercase tracking-[0.4em] transition-colors duration-500 ${
-                      theme === "dark"
-                        ? "text-gray-500 group-hover:text-neon-green"
-                        : "text-slate-400 group-hover:text-neon-green"
-                    }`}
-                  >
-                    {stat.label}
+                    <div
+                      className={`text-[10px] font-bold uppercase tracking-[0.4em] transition-colors duration-500 ${
+                        theme === "dark"
+                          ? "text-gray-500 group-hover:text-neon-green"
+                          : "text-slate-400 group-hover:text-neon-green"
+                      }`}
+                    >
+                      {stat.label}
+                    </div>
                   </div>
                 </div>
-
-                {/* Cyber-pulse effect at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden">
-                  <div className="w-full h-full bg-neon-green transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-center" />
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

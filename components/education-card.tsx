@@ -81,8 +81,8 @@ export function EducationCard({
           {description && description.length > 0 && (
             <div className="space-y-3 pt-4">
               {description.map((desc, i) => (
-                <p key={i} className={`text-sm leading-relaxed transition-colors duration-300 ${
-                  theme === "dark" ? "text-gray-500 group-hover:text-gray-300" : "text-slate-500 group-hover:text-slate-900"
+                <p key={i} className={`text-[15px] leading-relaxed font-medium transition-colors duration-300 ${
+                  theme === "dark" ? "text-gray-400 group-hover:text-gray-200" : "text-slate-600 group-hover:text-slate-900"
                 }`}>
                   {desc}
                 </p>
